@@ -1,0 +1,63 @@
+{
+    'o19_shower': {
+        'filter': {
+            'tunings': ["shower_TakeShower_*", 'shower_takeshower_*', ],
+        },
+        'actions': {
+            'enter_shower': {
+                'parameters': ['rotate_abs(180)', 'rotate_rnd(140)', ],
+                'timing': 'at_beginning',
+            },
+            'exit_shower': {
+                'parameters': ['rotate_end', ],
+            }
+        },
+        'commands': ['remove_privacy', ],  # allow sims to shower when they want to
+    },
+    'o19_pillow_fight': {
+         'filter': {
+            # 'command': 'o19.tunings.run',
+            # 'manager': "INTERACTION",
+            'tunings': ["*_PillowFight", "*_PillowFight_Target", ],
+        },
+        'actions': {
+            'start_undress_shoe': {
+                'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+                'timing': 'at_beginning',
+                'parameters': ['undress_shoe', ],
+                'include_target_sim': False,
+            },
+            'start_fight': {
+                'parameters': ['random(3)', 'undress_body_part(6,7,5)', 'repeat(tunings_ref,600,,30)'],
+                'timing': 'at_beginning',
+                'offset_time': 10,
+                'include_target_sim': False,
+            }
+        },
+    },
+    'o19_give_birth': {  # random name
+        'filter': {  # 'filter', do not modify
+            # 'command': 'o19.tunings.run',  # default
+            # 'instance': {'INTERACTION', },  # default
+            'tunings': ['*give_birth_picked_object', ],  # required parameter
+            # n="pandasama:User_direct_give_birth_picked_object" s="11101789365401490297"
+            # n="pandasama:mixer_social_give_birth_picked_object" s="16865635330063449487"
+        },
+        'actions': {  # 'actions', do not modify
+            'start_giving_birth': {  # random name
+                'parameters': ['o19_mystify(50)', ],  # required parameter
+                'timing': 'at_beginning',
+                # 'timing': 'at_end',  # default; str;  supported values: at_beginning, at_end
+                # 'offset_time': None,  # default; float; delay starting the command
+                # 'xevt_id': None,  # default, int;  execute the command when an xevt_id occurs
+                # 'drop_all_basic_extras': False,  # default; bool; True drops all basic_extras of the tuning (interaction)
+                # 'drop_basic_extras': None,  # default; List[str]; Individual classes to drop
+                # 'include_target_sim': True,  # default; bool; Set to False to omit the target sim
+            },
+            'baby_born': {
+                'parameters': ['o19_mystify(100)', ],
+                # 'timing': 'at_end',  # default
+            },
+        },
+    },
+}
