@@ -14,6 +14,7 @@ import sims4
 import sims4.commands
 import sims4.hash_util
 from objects.game_object import GameObject
+from on_interaction_do.cache.dc_cache import DcCache
 from on_interaction_do.executors.dc_command import DcCommand
 from on_interaction_do.executors.vanilla_command import VanillaCommand
 from sims4communitylib.utils.objects.common_object_utils import CommonObjectUtils
@@ -105,24 +106,31 @@ class Executor:
             return
 
         for function in funcs_with_params.split('+'):
-            function = re.sub(r' +', r'', function)  # remove ' '
-            f, _p = re.sub(r'^([^(]*)(?:\(([0-9,.+]*)\)|(.*))$', r'\g<1> \g<2>', function).split(' ', 1)
-            p: List[str] = _p.split(',')
+            # support for sim names. strip all parameters after RegEx and keep spaces
+            f, _p = re.sub(r'^([^(]*)(?:\(([a-zA-Z0-9,.+ ]*)\)|(.*))$', r'\g<1> \g<2>', function).split(' ', 1)
+            p = [s.strip() for s in _p.split(',')]
             function_type = f.split('_', 1)[0]
             if function_type == GenericFunction.ID or function_type == GenericFunction.NOP:
                 continue
             if function_type == OidConstants.PREFIX_GENERIC[:-1]:
                 rv = GenericCommand().process(f, p, interaction_id, sim_id, sim_info, target_id, target_sim_info, target_object, funcs_with_params)
 
+            elif function_type == OidConstants.PREFIX_DC_OR_VANILLA[:-1]:
+                if DcCache().failure:
+                    f = re.sub(r"^.", r"bg", f)
+                    rv = VanillaCommand().process(f, p, interaction_id, sim_id, sim_info, target_id, target_sim_info, target_object, funcs_with_params)
+                else:
+                    f = re.sub(r"^.", r"dc", f)
+                    rv = DcCommand().process(f, p, interaction_id, sim_id, sim_info, target_id, target_sim_info, target_object, funcs_with_params)
             elif function_type == OidConstants.PREFIX_VANILLA[:-1]:
                 rv = VanillaCommand().process(f, p, interaction_id, sim_id, sim_info, target_id, target_sim_info, target_object, funcs_with_params)
             elif function_type == OidConstants.PREFIX_DC[:-1]:
                 rv = DcCommand().process(f, p, interaction_id, sim_id, sim_info, target_id, target_sim_info, target_object, funcs_with_params)
             else:
-                log.warn(f"Skipping unknown function '{f}' in '{funcs_with_params}'")
+                log.warn(f"Executor.dc: Skipping unknown function '{f}' in '{funcs_with_params}'")
                 rv = True
             if rv is False:
-                log.warn(f"Exiting as function '{function}' returned 'False'.")
+                log.warn(f"Executor.dc: exiting as function '{function}' returned 'False'.")
                 break
 
     @staticmethod

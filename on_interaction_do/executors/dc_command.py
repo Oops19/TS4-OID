@@ -32,12 +32,12 @@ log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity(), 'D
 log.enable()
 
 
-class DcCommand(metaclass=Singleton):
+class DcCommand: # TODO support reload .... (metaclass=Singleton):
     def __init__(self):
         pass
 
     def process(self, function: str, parameters: List, interaction_id: int, sim_id: int, sim_info: SimInfo, target_id: int, target_sim_info: SimInfo, target_object: GameObject, funcs_with_params: str = None) -> bool:
-        log.debug(f"DcCommand.process({function}, {parameters}, {interaction_id}, {sim_info}, {target_sim_info})")
+        log.debug(f"DC.process({function}, {parameters}, {interaction_id}, {sim_info}, {target_sim_info})")
         if DcCache().failure:
             return True
 
@@ -48,7 +48,7 @@ class DcCommand(metaclass=Singleton):
         elif function == DcFunction.F_ERECT_PENIS:
             self._erect_penis(sim_info)
         elif function == DcFunction.F_LOWER_GENITAL:
-            self._raise_genital(sim_info)
+            self._lower_genital(sim_info)
         elif function == DcFunction.F_REMOVE_STRAP_ON:
             self._remove_strap_on(sim_info)
         elif function == DcFunction.F_LOWER_PENIS:
@@ -76,10 +76,10 @@ class DcCommand(metaclass=Singleton):
             elif function == DcFunction.F_UNDRESS_SHOES:
                 self._undress_shoes(sim_info)
             elif function == DcFunction.F_UNDRESS_NEXT:
-                self._undress_next(sim_info)
+                self._undress_next(sim_info, parameters)
             #
             else:
-                log.debug(f"Unknown function {function}")
+                log.debug(f"DC.process: Unknown undress function {function}")
         elif function.startswith(DcFunction.F_EQUIP_PREFIX):
             if function.startswith(DcFunction.F_UNDRESS_CAS_PARTS):
                 self._equip_or_undress_body_part(function, parameters, sim_info)
@@ -92,9 +92,9 @@ class DcCommand(metaclass=Singleton):
             elif function == DcFunction.F_EQUIP_BOTTOM:
                 self._equip_bottom(sim_info)
             else:
-                log.debug(f"Unknown function {function}")
+                log.debug(f"DC.process: Unknown equip function {function}")
         else:
-            log.debug(f"Unknown function {function}")
+            log.debug(f"DC.process: Unknown function {function}")
         return True
 
     def _raise_genital(self, sim_info: SimInfo) -> bool:
@@ -124,13 +124,11 @@ class DcCommand(metaclass=Singleton):
         return True
 
     def _erect_penis(self, sim_info: SimInfo) -> bool:
-        log.debug("making horny")
-
         try:
             if DCSexualOrganUtils().has_penis(sim_info):
                 DDPenisStateUtils().set_erect(sim_info, DDSexSystemStringId.BUFF_REASON_FROM_ENGAGING_IN_SEXY_TIME, update_outfit=True)
         except:
-            log.debug("err making horny")
+            pass
         return True
 
     def _flaccid_penis(self, sim_info: SimInfo) -> bool:
@@ -141,39 +139,72 @@ class DcCommand(metaclass=Singleton):
             pass
         return True
 
-    def _penis_milked(self, function: str, parameters: List, interaction_id: int, sim_id: int, sim_info: SimInfo, target_id: int, target_sim_info: SimInfo, target_object: GameObject, funcs_with_params: str = None) -> bool:
+    def _penis_orgasm(self, function: str, parameters: List, interaction_id: int, sim_id: int, sim_info: SimInfo, target_id: int, target_sim_info: SimInfo, target_object: GameObject, funcs_with_params: str = None) -> bool:
+        if DcCache.failure:
+            return True
         if DCSexualOrganUtils().has_penis(sim_info):
             try:
-                mulitplier = abs(float(parameters[0]))
+                multiplier = abs(float(parameters[0]))
             except:
-                mulitplier = 1
+                multiplier = 1
             try:
-                from deviousdesires.milkfarm.utils.sim_milk_utils import DDMFSimMilkUtils
-                from deviousdesires.milkfarm.settings.setting_utils import DDMilkFarmSettingUtils
+                from deviousdesires_milk_farm.utils.sim_milk_utils import DDMFSimMilkUtils
+                from deviousdesires_milk_farm.settings.setting_utils import DDMilkFarmSettingUtils
                 if DDMFSimMilkUtils().has_required_cum_level_for_orgasm(sim_info):
-                    amount = DDMilkFarmSettingUtils.CumProduction.get_cum_lost_per_orgasm() * mulitplier
+                    amount = DDMilkFarmSettingUtils.CumProduction.get_cum_lost_per_orgasm() * multiplier
                     DDMFSimMilkUtils().change_cum_level(sim_info, -amount)
+                    log.debug(f"Sprayed {amount:.2f} ({multiplier:.2f} orgasms with {DDMilkFarmSettingUtils.CumProduction.get_cum_lost_per_orgasm():.2f})")
+            except:
+                log.warn(f"Milk Farm DLC not found!")
+        return True
+
+    def _penis_milked(self, function: str, parameters: List, interaction_id: int, sim_id: int, sim_info: SimInfo, target_id: int, target_sim_info: SimInfo, target_object: GameObject, funcs_with_params: str = None) -> bool:
+        if DcCache.failure:
+            return True
+        if DCSexualOrganUtils().has_penis(sim_info):
+            try:
+                multiplier = abs(float(parameters[0]))
+            except:
+                multiplier = 1
+            try:
+                from deviousdesires_milk_farm.utils.sim_milk_utils import DDMFSimMilkUtils
+                from deviousdesires_milk_farm.settings.setting_utils import DDMilkFarmSettingUtils
+                if DDMFSimMilkUtils().has_required_cum_level_for_orgasm(sim_info):
+                    amount = DDMilkFarmSettingUtils.get_milk_or_cum_amount_per_bottle() * multiplier
+                    DDMFSimMilkUtils().change_cum_level(sim_info, -amount)
+                    log.debug(f"Milked {amount:.2f} ({multiplier:.2f} bottles with {DDMilkFarmSettingUtils.get_milk_or_cum_amount_per_bottle():.2f})")
             except:
                 log.warn(f"Milk Farm DLC not found!")
         return True
 
     def _breast_milked(self, function: str, parameters: List, interaction_id: int, sim_id: int, sim_info: SimInfo, target_id: int, target_sim_info: SimInfo, target_object: GameObject, funcs_with_params: str = None) -> bool:
+        if DcCache.failure:
+            return True
         if DCSexualOrganUtils().has_breasts(sim_info):
             try:
-                mulitplier = abs(float(parameters[0]))
+                multiplier = abs(float(parameters[0]))
             except:
-                mulitplier = 3
+                multiplier = 3
+            from deviousdesires_milk_farm.settings.setting_utils import DDMilkFarmSettingUtils
+            from deviousdesires_milk_farm.utils.sim_milk_utils import DDMFSimMilkUtils
+            from deviousdesires_milk_farm.mobile_milking.components.sim_milking_component import DDSimMilkingComponent
+            body_location = DCBodyLocation.CHEST  # DDMFBodyLocation.BREASTS
+            milking_component: DDSimMilkingComponent = DDSimMilkingComponent(sim_info, (body_location,))
+            amount = DDMilkFarmSettingUtils.get_milk_or_cum_amount_per_bottle() * multiplier
+            milking_component._sim_milk_utils.change_milk_level(milking_component._sim_info, body_location, -amount)
+            log.debug(f"Milked {amount:.2f} ({multiplier:.2f} bottles with {DDMilkFarmSettingUtils.get_milk_or_cum_amount_per_bottle():.2f})")
             try:
                 # optionally: multiplier = ... based on buff / production levels
-                from deviousdesires.milkfarm.settings.setting_utils import DDMilkFarmSettingUtils
-                from deviousdesires.milkfarm.utils.sim_milk_utils import DDMFSimMilkUtils
-                from deviousdesires.milkfarm.milking.components.sim_milking_component import DDSimMilkingComponent
+                from deviousdesires_milk_farm.settings.setting_utils import DDMilkFarmSettingUtils
+                from deviousdesires_milk_farm.utils.sim_milk_utils import DDMFSimMilkUtils
+                from deviousdesires_milk_farm.mobile_milking.components.sim_milking_component import DDSimMilkingComponent
                 body_location = DCBodyLocation.CHEST  # DDMFBodyLocation.BREASTS
                 milking_component: DDSimMilkingComponent = DDSimMilkingComponent(sim_info, (body_location,))
-                amount = DDMilkFarmSettingUtils.get_milk_or_cum_amount_per_bottle() * mulitplier
+                amount = DDMilkFarmSettingUtils.get_milk_or_cum_amount_per_bottle() * multiplier
                 milking_component._sim_milk_utils.change_milk_level(milking_component._sim_info, body_location, -amount)
+                log.debug(f"Milked {amount:.2f} ({multiplier:.2f} bottles with {DDMilkFarmSettingUtils.get_milk_or_cum_amount_per_bottle():.2f})")
             except:
-                pass
+                log.warn(f"Milk Farm DLC not found!")
         return True
 
     def _undo_outfit(self, function: str, parameters: List, interaction_id: int, sim_id: int, sim_info: SimInfo, target_id: int, target_sim_info: SimInfo, target_object: GameObject, funcs_with_params: str = None) -> bool:
@@ -281,21 +312,26 @@ class DcCommand(metaclass=Singleton):
         is_strap = None
         data = [is_nude, is_under, is_strap]
         OutfitCache.outfit_top.update({sim_info.sim_id: data})
-        log.debug(f"Outfits top: {OutfitCache.outfit_top}")
+        log.debug(f"OutfitCache: {OutfitCache.outfit_top}")
         DDNuditySystemUtils().set_equipment_part_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_TOP, DCPartLayer.NUDE)
 
     def _equip_top(self, sim_info):
         data = OutfitCache.outfit_top.pop(sim_info.sim_id, None)
         if data:
             is_nude, is_under, _ = data
-            if is_under:
-                log.debug("OutfitTools: Adding underwear")
-                DDNuditySystemUtils().set_equipment_part_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_TOP, DCPartLayer.UNDERWEAR)
-            elif not is_nude:
+            is_outer = not (is_nude or is_under)
+            if is_outer:
                 log.debug("OutfitTools: Adding outerwear")
                 DDNuditySystemUtils().set_equipment_part_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_TOP, DCPartLayer.OUTERWEAR)
             else:
-                log.debug('OutfitTools: NoChange')
+                if is_nude:
+                    log.debug("OutfitTools: Removing everything")
+                    DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_TOP, DCPartLayer.NUDE)
+                if is_under:
+                    log.debug("OutfitTools: Adding underwear")
+                    DDNuditySystemUtils().set_equipment_part_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_TOP, DCPartLayer.UNDERWEAR)
+        else:
+            log.debug('OutfitTools: NoChange')
 
     def _undress_bottom(self, sim_info):
         is_nude = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_BOTTOM, DCPartLayer.NUDE).result
@@ -305,25 +341,30 @@ class DcCommand(metaclass=Singleton):
         # EQUIPMENT_STRAPON + OUTERWEAR ... remove/no strapon
         data = [is_nude, is_under, is_strap]
         OutfitCache.outfit_bottom.update({sim_info.sim_id: data})
-        log.debug(f"Outfits bottom: {OutfitCache.outfit_bottom}")
+        log.debug(f"OutfitCache: {OutfitCache.outfit_bottom}")
         DDNuditySystemUtils().set_equipment_part_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_BOTTOM, DCPartLayer.NUDE)
 
     def _equip_bottom(self, sim_info):
         data = OutfitCache.outfit_bottom.pop(sim_info.sim_id, None)
         if data:
+            log.debug(f"{data}")
             is_nude, is_under, is_strap = data
-            if not is_strap:
-                if not DCSexualOrganUtils().has_penis(sim_info):
-                    log.debug("OutfitTools: Removing strapon")
-                    DDNuditySystemUtils().set_equipment_part_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_STRAPON, DCPartLayer.OUTERWEAR)
-            if is_under:
-                log.debug("OutfitTools: Adding underwear")
-                DDNuditySystemUtils().set_equipment_part_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_BOTTOM, DCPartLayer.UNDERWEAR)
-            elif not is_nude:
+            is_outer = not (is_nude or is_under or is_strap)
+            if is_outer:
                 log.debug("OutfitTools: Adding outerwear")
                 DDNuditySystemUtils().set_equipment_part_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_BOTTOM, DCPartLayer.OUTERWEAR)
             else:
-                log.debug('OutfitTools: NoChange')
+                if is_nude:
+                    log.debug("OutfitTools: Removing everything")
+                    DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_BOTTOM, DCPartLayer.NUDE)
+                if is_under:
+                    log.debug("OutfitTools: Adding underwear")
+                    DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_BOTTOM, DCPartLayer.UNDERWEAR)
+                if is_strap:
+                    log.debug("OutfitTools: Adding strap-on")
+                    DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_STRAPON, DCPartLayer.NUDE)
+        else:
+            log.debug("OutfitTools: No change, Sim not found")
 
     def _undress_shoes(self, sim_info):
         undress_part = DDPartHandleType.EQUIPMENT_FEET
@@ -336,7 +377,68 @@ class DcCommand(metaclass=Singleton):
         else:
             DDNuditySystemUtils().set_equipment_part_to_layer_by_type(sim_info, undress_part, DCPartLayer.NUDE)
 
-    def _undress_next(self, sim_info):
+    def _underss_next_custom(self, sim_info: SimInfo, parameters: List) -> bool:
+        _map = {
+            1: DDPartHandleType.EQUIPMENT_HAT,
+            3: DDPartHandleType.EQUIPMENT_HEAD,
+            5: DDPartHandleType.EQUIPMENT_FULL_BODY,
+            6: DDPartHandleType.EQUIPMENT_TOP,
+            7: DDPartHandleType.EQUIPMENT_BOTTOM,
+            8: DDPartHandleType.EQUIPMENT_FEET,
+            9: DDPartHandleType.EQUIPMENT_CUMMERBUND,
+            10: DDPartHandleType.EQUIPMENT_EARRINGS,
+            11: DDPartHandleType.EQUIPMENT_GLASSES,
+            12: DDPartHandleType.EQUIPMENT_NECKLACE,
+            14: DDPartHandleType.EQUIPMENT_WRIST_LEFT,
+            15: DDPartHandleType.EQUIPMENT_WRIST_RIGHT,
+            36: DDPartHandleType.EQUIPMENT_SOCKS,
+            42: DDPartHandleType.EQUIPMENT_TIGHTS,
+        }
+        for _body_type in parameters:
+            body_type = int(_body_type)
+            if body_type not in _map.keys():
+                continue
+            undress_part = _map.get(body_type)
+
+            _is_nude = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, undress_part, DCPartLayer.NUDE).result
+            _is_underwear = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, undress_part, DCPartLayer.UNDERWEAR).result
+            _is_outerwear = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, undress_part, DCPartLayer.OUTERWEAR).result
+            if undress_part in [DDPartHandleType.EQUIPMENT_FULL_BODY, DDPartHandleType.EQUIPMENT_TOP, DDPartHandleType.EQUIPMENT_BOTTOM]:
+                _is_underwear = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, undress_part, DCPartLayer.UNDERWEAR).result
+            else:
+                _is_underwear = None
+            log.debug(f"{sim_info}: {undress_part}: outer={_is_outerwear}, nude={_is_nude}, under={_is_underwear}")
+
+            if _is_nude:
+                continue
+            if undress_part in [DDPartHandleType.EQUIPMENT_FULL_BODY, DDPartHandleType.EQUIPMENT_TOP, DDPartHandleType.EQUIPMENT_BOTTOM]:
+                if _is_outerwear:
+                    DDNuditySystemUtils().set_equipment_part_to_layer_by_type(sim_info, undress_part, DCPartLayer.UNDERWEAR)
+                    break
+                if _is_underwear:
+                    DDNuditySystemUtils().set_equipment_part_to_layer_by_type(sim_info, undress_part, DCPartLayer.NUDE)
+                    break
+            if _is_outerwear:
+                DDNuditySystemUtils().set_equipment_part_to_layer_by_type(sim_info, undress_part, DCPartLayer.NUDE)
+                break
+
+
+            _is_nude = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, undress_part, DCPartLayer.NUDE).result
+            _is_underwear = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, undress_part, DCPartLayer.UNDERWEAR).result
+            _is_outerwear = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, undress_part, DCPartLayer.OUTERWEAR).result
+            if undress_part in [DDPartHandleType.EQUIPMENT_FULL_BODY, DDPartHandleType.EQUIPMENT_TOP, DDPartHandleType.EQUIPMENT_BOTTOM]:
+                _is_underwear = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, undress_part, DCPartLayer.UNDERWEAR).result
+            else:
+                _is_underwear = None
+            log.debug(f"{sim_info}: {undress_part}: outer={_is_outerwear}, nude={_is_nude}, under={_is_underwear} <<<< Now")
+        return True
+
+    def _undress_next(self, sim_info: SimInfo, parameters: List) -> bool:
+        if parameters:
+            return self._underss_next_custom(sim_info, parameters)
+        # HAT, SHOES, SOCKS, TOP, BOTTOM, FULL, CUMMERBUND, TIGHTS
+        return self._underss_next_custom(sim_info, 1, 8, 36, 6, 7, 5, 9, 42)
+
         undress_parts_1 = (
             [DDPartHandleType.EQUIPMENT_FEET, DDPartHandleType.EQUIPMENT_SOCKS, ],
         )

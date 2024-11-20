@@ -185,6 +185,9 @@ class TuneKritical:
 
     @staticmethod
     def start():
+        log.debug(f'# Kritical will no longer be used!')
+        return
+
         log.debug("# Kritical")
         TuneKritical.tuning_helper = TuningHelper()
         TuneKritical.basic_extras = BasicExtras()

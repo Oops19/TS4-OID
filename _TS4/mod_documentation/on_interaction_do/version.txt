@@ -1,6 +1,6 @@
-OnInteractionDo v0.0.5 for The Sims 4 v1.110.311 and S4CL v3.9
-Created on 2024-11-14
-v0.0.5
-    Replace local TranslucencyManager with TS4-Library.OpacityManager
-    Tested with DD v5.23 2024-11-20, CB v1.67 2024-11-04, HIU v0.3j 2024-09-14
+OnInteractionDo v0.0.7 for The Sims 4 v1.110.311 and S4CL v3.9
+Created on 2024-11-16
+v0.0.7
+    Allow to modify trait and buff checks via script.
+    Replace 'tune_kritical.py' with 'cfg/o19_kritical.txt'
 

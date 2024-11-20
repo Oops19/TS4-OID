@@ -60,9 +60,8 @@ class DataStore(object, metaclass=Singleton):
             log.error(f"{e}")
 
     def store_interaction_ids(self, interaction_ids: Set[int]) -> int:
-        ii = self.interaction_ids
-        i_id = len(ii) + 1
-        ii.update({i_id: interaction_ids})
+        i_id = len(self.interaction_ids) + 1
+        self.interaction_ids.update({i_id: interaction_ids})
         return i_id
 
     def get_interaction_ids(self, tuning_ref: int) -> Set[int]:

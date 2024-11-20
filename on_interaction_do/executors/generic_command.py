@@ -47,7 +47,7 @@ class GenericCommand(metaclass=Singleton):
             return self._rotate_end(function, parameters, interaction_id, sim_id, target_id, funcs_with_params)
         elif function == GenericFunction.F_OPACITY:
             return self._opacity(function, parameters, interaction_id, sim_id, target_id, funcs_with_params)
-        elif function[:2] == OidConstants.PREFIX_DC_OR_VANILLA:
+        elif function[:2] == OidConstants.PREFIX_DC_OR_VANILLA:  # TODO remove this code ... moved to Executor
             if DcCache().failure:
                 function = re.sub(r"^.", r"bg", function)
                 return VanillaCommand().process(function, parameters, interaction_id, sim_id, sim_info, target_id, target_sim_info, target_object, funcs_with_params)
@@ -59,7 +59,7 @@ class GenericCommand(metaclass=Singleton):
         elif function == GenericFunction.F_DEBUG_ALERT:
             SimpleUINotification().show('OID DEBUG', f'{function}({parameters}) interaction_id={interaction_id}, sim={sim_info}, participant={target_sim_info}, obj={target_object}', UiDialogNotification.UiDialogNotificationUrgency.URGENT)
         else:
-            log.debug(f"Unknown function {function}")
+            log.debug(f"GC.process: Unknown function {function}")
         return True
 
     def _repeat(self, function: str, parameters: List[str], interaction_id: int, sim_id: int, target_sim_id: int, funcs_with_params: str) -> bool:

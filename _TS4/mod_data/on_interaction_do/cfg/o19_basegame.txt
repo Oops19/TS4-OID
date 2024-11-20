@@ -1,7 +1,7 @@
 {
 
 	# Turn sim around in shower
-    'o19_shower': {
+    'o19_bg_shower': {
         'filter': {
 			'command': 'o19.oid.do_command',  # o19.oid.static_cheat
             'tunings': ["shower_TakeShower_*", 'shower_takeshower_*', ],
@@ -20,25 +20,7 @@
         'commands': ['remove_privacy', ],  # allow sims to shower when they want to
     },
 
-	# This one is broken, sim gets transparent before getting the baby and when the born animation shows the baby it's normal again
-    'o19_give_birth': {  # random name
-        'filter': {  # 'filter', do not modify
-            'tunings': ['pandasama:Birth_Tub_birth_continuation', ],  # required parameter
-        },
-        'actions': {  # 'actions', do not modify
-            'start_giving_birth': {  # random name
-                'parameters': ['g_opacity(0.6, 3)', ],  # required parameter - opacity(opacity-value, fade-duration)
-                'timing': 'at_beginning',
-            },
-            'baby_born': {
-                'parameters': ['g_opacity(1, 3)', ],  # opacity(opacity-value, fade-duration)
-				'timing': 'at_end',
-            },
-        },
-    },
-
-	# to be implemented
-    'o19_pillow_fight': {
+    'o19_bg_pillow_fight': {
          'filter': {
             'tunings': ["*_PillowFight", "*_PillowFight_Target", ],
         },
@@ -46,15 +28,162 @@
             'start_undress_shoe': {
                 'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
                 'timing': 'at_beginning',
-                'parameters': ['bg_undress_shoe', ],
+                'parameters': ['s_undress_shoes', ],
                 'include_target_sim': False,
             },
             'start_fight': {
-                'parameters': ['g_random(3)', 'bg_undress(6,7,5)', 'g_repeat(tunings_ref,600,,30)'],
+                'parameters': ['g_repeat(tunings_ref,600,30)', 'g_random(5)', 's_undress_next(6,7,5)', ],
                 'timing': 'at_beginning',
                 'offset_time': 10,
                 'include_target_sim': False,
             }
         },
     },
+
+    'o19_bg_sabbac': {
+         'filter': {
+            'tunings': ["socialMixer_Sabacc_GG_Loser", "socialMixer_Sabacc_Fold", "socialMixer_Sabacc_EveryoneFolded", ],
+        },
+        'actions': {
+            'lost_game': {
+                'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+                'timing': 'at_beginning',
+                'parameters': ['s_undress_next', ],
+            },
+        },
+    },
+
+    'o19_bg_water_slide': {
+         'filter': {
+            'tunings': ["object_SlippySlide_Slide", "object_SlippySlide_TrickSlide", ],
+        },
+        'actions': {
+            'lose_top': {
+                'timing': 'at_beginning',
+                'offset_time': 1.2,
+                'parameters': ['g_random(10)', 's_undress_top', ],
+            },
+            'lose_bottom': {
+                'timing': 'at_beginning',
+                'offset_time': 1.2,
+                'parameters': ['g_random(5)', 's_undress_bottom', ],
+            },
+        },
+    },
+
+    'o19_bg_jump_into': {
+         'filter': {
+            'tunings': ["si_JumpStand_Jump_*", "si_JumpStand_Showboat_*", "dockAndLadder_JumpDown_*", ],
+        },
+        'actions': {
+            'lose_top': {
+                'timing': 'at_end',
+                'parameters': ['g_random(10)', 's_undress_top', ],
+            },
+        },
+    },
+    'o19_bg_jump_swan': {
+         'filter': {
+            'tunings': ["*SwanDive"],
+        },
+        'actions': {
+            'lose_bottom': {
+                'timing': 'at_end',
+                'parameters': ['g_random(10)', 's_undress_bottom', ],
+            },
+        },
+    },
+
+    'o19_bg_swim_1': {
+         'filter': {
+            'tunings': ["ocean-swim*", "pool-swim*", "sim-swim", "terrain-swim*", ],
+        },
+        'actions': {
+            'swim': {
+                'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+                'timing': 'at_beginning',
+                'offset_time': 20,
+                'parameters': ['g_random(2)', 's_undress_next(6,7,5)', ],
+                'include_target_sim': False,
+            },
+        },
+    },
+    'o19_bg_swim_2': {
+         'filter': {
+            'tunings': ["mixer_social_Pool_Splash*", "pool_Splash*", ],
+        },
+        'actions': {
+            'splash': {
+                'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+                'timing': 'at_beginning',
+                'offset_time': 3,
+                'parameters': ['g_random(4)', 's_undress_next(6,7,5)', ],
+                'include_target_sim': False,
+            },
+        },
+    },
+    'o19_bg_swim_3': {
+         'filter': {
+            'tunings': ["*KissInWater", "*KissInWater_Mermaid", "*KissinWater_MermaidPower", ],
+        },
+        'actions': {
+            'kiss': {
+                'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+                'timing': 'at_beginning',
+                'offset_time': 2,
+                'parameters': ['g_random(3)', 's_undress_next(6,7,5)', ],
+                'include_target_sim': False,
+            },
+        },
+    },
+
+    'o19_bg_workout': {
+         'filter': {
+            'tunings': ["TV_Workout*", "TV_Watch_WorkOut*", "generic_group_workout*", "treadmill_workout*", "tV_Synch_Mixer_Workout_Together*", ],
+        },
+        'actions': {
+            'workout': {
+                'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+                'timing': 'at_beginning',
+                'offset_time': 20,
+                'parameters': ['g_random(2)', 's_undress_next(6,7,5)', ],
+                'include_target_sim': False,
+            },
+        },
+    },
+
+    'o19_bg_woohoo_1': {
+         'filter': {
+            'tunings': ["*_WooHoo", "*_WooHoo_Picker", "*_WooHoo_Stand_Picker", '*_TryForBaby', '*_TryForBaby_Female_Picker', '*_TryForBaby_Male_Picker', ],
+        },
+        'actions': {
+            'woohoo': {
+                'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+                'timing': 'at_beginning',
+                'parameters': ['s_undress_top', 's_undress_bottom', 'dc_erect_penis', ],
+                'include_target_sim': False,
+            },
+            'happy_end': {
+                'parameters': ['dc_flaccid_penis', ],
+                'include_target_sim': False,
+            }
+        },
+    },
+    'o19_bg_woohoo_2': {
+         'filter': {
+            'tunings':["hotSprings_WooHoo*", "hotTub_WooHoo*", "islandWaterfall_WooHoo*", "shower_WooHoo*", "steamRoom_WooHoo*",
+                              "generic_hotSprings_WooHoo*", "generic_hotTub_WooHoo*", "generic_islandWaterfall_WooHoo*",
+                              "generic_shower_WooHoo*", "generic_steamRoom_WooHoo*",
+                               "hotSprings_TryForBaby*", "hotTub_TryForBaby*", "islandWaterfall_TryForBaby*", "shower_TryForBaby*", "steamRoom_TryForBaby*", ]
+        },
+        'actions': {
+            'water_woohoo': {
+                'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+                'timing': 'at_beginning',
+                'parameters': ['s_undress_all', 'dc_erect_penis', ],
+                'include_target_sim': False,
+            },
+        },
+    },
+
 }

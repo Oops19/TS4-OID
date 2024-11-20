@@ -1,0 +1,329 @@
+{
+    'o19_k_styx_urinal': {
+        'filter': {
+                # StyxUrinal1: "Kritical:Urinal2UseConstraint1" = 17192679856254027866
+                # 16440018589410761277, no longer used in 1h (bug in XML) but in earlier versions
+            'tunings': ["Kritical:Urinal2UseConstraint1", "16440018589410761277", ],
+        },
+        'actions': {
+            'start_pee': {
+				'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+				'parameters': ['s_undo_outfit(30, 2)', 's_undress_bottom', 'dc_erect_penis', ],  # undo after max 30s, wait 2s after end of interaction
+                'timing': 'at_beginning',
+				'include_target_sim': False,
+			},
+        },
+    },
+
+    'o19_k_celadon_urinal_no_fade': {
+        'filter': {
+            'tunings': ["Kritical:Celadon:Constraint:InsideSimIdleWilling1",
+                        "Kritical:Celadon:Constraint:InsideSimIdleUnwilling1", ],  # 14702212717003412158
+        },
+        'actions': {
+            'start': {
+				'drop_basic_extras': ['TunableSetVisibilityStateElementWrapper.SetVisibilityStateElement', ],
+				'parameters': ['g_debug_alert(FadeOut)', 'nop', ],
+				'include_target_sim': False,
+			},
+        },
+    },
+
+    'o19_k_celadon_urinal_serving': {
+        'filter': {
+            'tunings': ["Kritical:Celadon:Super:InsideSimIdleWilling1",
+                        "Kritical:Celadon:Super:InsideSimIdleUnwilling1",
+                        "Kritical:Celadon:Super:InsideSimIdleUnwillingNoFade1", ],
+        },
+        'actions': {
+            'start': {
+				'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+				'parameters': ['g_debug_alert(StartServing)', 's_undress_bottom', 's_undress_top', 's_undress_shoes', ],
+                'timing': 'at_beginning',
+				'include_target_sim': False,
+			},
+        },
+    },
+    'o19_k_celadon_urinal_1': {
+        'filter': {
+            'tunings': ["Kritical:Celadon:Constraint:WillingUse1", "Kritical:Celadon:Constraint:UnwillingUse1",
+                       "Kritical:Celadon:Constraint:WillingUseFemale1", "Kritical:Celadon:Constraint:UnwillingUseFemale1", ],
+        },
+        'actions': {
+            'start_pee': {
+				'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+				'parameters': ['s_undress_bottom', 'dc_erect_penis', ],
+                'timing': 'at_beginning',
+				'include_target_sim': False,
+			},
+        },
+    },
+    'o19_k_celadon_urinal_2': {
+        'filter': {
+            'tunings': ["Kritical:Celadon:Super:WillingUse1",  # {10170711079363353095:
+                        "Kritical:Celadon:Super:UnwillingUse1",
+                        "Kritical:Celadon:Super:WillingUseFemale1",
+                        "Kritical:Celadon:Super:UnwillingUseFemale1", ],
+        },
+        'actions': {
+            'end_pee': {
+				'parameters': ['s_equip_bottom', 'dc_flaccid_penis', ],
+				'include_target_sim': False,
+			},
+        },
+    },
+
+    'o19_k_lethe_urinal': {
+        'filter': {
+            'tunings': ["Kritical:StandingUseMod", ],  # 17990069473521690511
+        },
+        'actions': {
+            'start_pee': {
+				'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+				'parameters': ['s_undo_outfit(10000, 2)', 's_undress_bottom', 'dc_erect_penis', ],  # this interaction runs long
+                'timing': 'at_beginning',
+				'include_target_sim': False,
+			},
+        },
+        'commands': ['remove_privacy', ],  # allow sims to pee even if other sims are around
+    },
+
+    'o19_k_exercise_bike_1': {
+        'filter': {
+            'tunings': ["Kritical:fuckbikeInteraction1", ],
+        },
+        'actions': {
+            'start_riding': {
+				'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+				'parameters': ['s_undo_outfit(10000, 2)', 's_undress_bottom', 'g_repeat(tunings_ref,600,30)', 'g_random(5)', 's_undress_top', ],
+                'timing': 'at_beginning',
+				'include_target_sim': False,
+			},
+        },
+    },
+    'o19_k_exercise_bike_2': {
+        'filter': {
+            'tunings': ["Kritical:fuckbikeInteraction1", ],
+        },
+        'actions': {
+            'start_riding': {
+                'offset_time': 5,
+				'parameters': ['dc_erect_penis', ],
+                'timing': 'at_beginning',
+				'include_target_sim': False,
+			},
+        },
+        'commands': ['remove_privacy', ],  # allow sims to pee even if other sims are around
+    },
+
+    'o19_k_sensory_deprivation_chamber': {
+        'filter': {
+            'tunings': ["Kritical:SensoryDeprivationChamberTuning-EnterConstraint1", ],
+        },
+        'actions': {
+            'start': {
+				'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+				'parameters': ['s_undo_outfit(10000, 2)', 's_undress_bottom', 's_undress_top', ],  # sim is not animated while in chamber
+                'timing': 'at_beginning',
+				'include_target_sim': False,
+			},
+        },
+    },
+
+    'o19_k_thigh_master_1': {
+        'filter': {
+            'tunings': ["Kritical:Thighmaster_Constraint_Light1", "Kritical:Thighmaster_Constraint_Med1", "Kritical:Thighmaster_Constraint_Heavy1", ],
+        },
+        'actions': {
+            'start': {
+				'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', 'TunableSetVisibilityStateElementWrapper.SetVisibilityStateElement', ],
+				'parameters': ['nop', ],  # just drop some basic extras
+                'timing': 'at_beginning',
+				'include_target_sim': False,
+			},
+        },
+    },
+    'o19_k_thigh_master_2': {
+        'filter': {
+            'tunings': ["Kritical:Thighmaster_Interaction_Light1", "Kritical:Thighmaster_Interaction_Med1", "Kritical:Thighmaster_Interaction_Heavy1",
+                       "Kritcal:Thighmaster_Interaction_Light1", "Kritcal:Thighmaster_Interaction_Med1", "Kritcal:Thighmaster_Interaction_Heavy1", ]  # type in name (v1)
+        },
+        'actions': {
+            'start': {
+				'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', 'TunableSetVisibilityStateElementWrapper.SetVisibilityStateElement', 'TunableChangeOutfitElementWrapper.ChangeOutfitElement', ],
+				'parameters': ['s_undo_outfit(600, 2)','s_undress_bottom',  ],
+                'timing': 'at_beginning',
+				'include_target_sim': False,
+			},
+        },
+    },
+
+    'o19_k_feed_machine_v2_allow': {
+        'filter': {
+            'tunings': ['Kritical:FeedMachine1InteractionConstraint1', ],
+            'traits': ["GEN_DeviousDesires_Fetishes_Trait_SimPreference_LIKE_Fetish_CUM_CONSUMPTION_AsFeeder", ],
+        },
+        'commands': ['add_whitelist_traits', ],
+    },
+
+    'o19_arcade_usage_idle': {
+        'filter': {
+            'tunings': ["Kritical:PracticalSexArcade-InteractionInsideIdle1(1)", ],
+        },
+        'actions': {
+            'start': {
+                'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+				'parameters': ['s_undress_all', ],
+                'timing': 'at_beginning',
+			},
+        },
+    },
+
+    'o19_arcade_pre_start': {
+        'filter': {
+            'tunings': ["Kritical:BJArcadeTuning-ConstraintCustomer1",
+                        "Kritical:PracticalSexArcade-CUSTOMER-constraintToTeleportUnprotected1",
+                        "Kritical:PracticalSexArcade-CUSTOMER-constraintToTeleport",
+                        "Kritical:PracticalSexArcade-CUSTOMER-FemaleStrapon-constraint", ],
+        },
+        'actions': {
+            'cleaning': {
+				'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+				'parameters': ['nop', ],
+			},
+        },
+    },
+    'o19_arcade_start': {
+        'filter': {
+            'tunings': ["Kritical:BJArcadeTuning-IdleCustomer1",                    # 3722
+                        "Kritical:BJArcadeTuning-ConstraintCustomerEvil1",
+                        "Kritical:PracticalSexArcade-UsageInteraction1(2)",        # 3835
+                        "Kritical:PracticalSexArcade-UsageInteraction1(2)Unprotected1", ],
+        },
+        'actions': {
+            'start': {
+				'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+				'parameters': ['s_undress_bottom', 'dc_raise_genital', ],
+                'timing': 'at_beginning',
+			},
+            'pregnancy_test': {
+				'parameters': ['g_random(3)', 'bg_impregnate', ],  # 3% pregnancy chance
+                'timing': 'at_beginning',
+                'offset_time': 30,
+			},
+        },
+    },
+    'o19_arcade_end': {
+        'filter': {
+            'tunings': ["Kritical:PracticalSexArcade-InteractionInsideIdle2(3)", ],  # 7676
+        },
+        'actions': {
+            'end': {
+				'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+				'parameters': ['s_equip_bottom', 'dc_lower_genital', 'dc_penis_orgasm', ],
+			},
+        },
+    },
+    'o19_arcade_remove_gender_check': {
+        'filter': {
+            'tunings': ["Kritical:PracticalSexArcade-CUSTOMER-constraintToTeleport",
+                        "Kritical:BJArcadeTuning-ConstraintCustomerEvil1", "Kritical:BJArcadeTuning-ConstraintCustomer1", ],
+        },
+        'commands': ['no_gender_check', ],
+    },
+
+
+
+    'o19_milking_machine_1': {
+        'filter': {
+            'tunings': ["Kritical:MM_MilkCowSmallAssetsConstraint1",
+                        "Kritical:MM_MilkCowMediumAssetsConstraint1",
+                        "Kritical:MM_MilkCowBigAssetsConstraint1",
+                       "Kritical:MilkingUpgrade:InteractionTuning:Constaint:SmallAssetsMilking1",
+                       "Kritical:MilkingUpgrade:InteractionTuning:Constaint:MedAssetsMilking1",
+                       "Kritical:MilkingUpgrade:InteractionTuning:Constaint:LargeAssetsMilking1", ],
+        },
+        'actions': {
+            'start': {
+				'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', 'TunableSetVisibilityStateElementWrapper.SetVisibilityStateElement', 'TunableChangeOutfitElementWrapper.ChangeOutfitElement', ],
+				'parameters': ['s_undress_top', ],
+                'timing': 'at_beginning',
+                'include_target_sim': False,
+			},
+        },
+    },
+    'o19_milking_machine_2': {
+        'filter': {
+            'tunings': ["Kritical:MM_MilkCowSmallAssetsInteraction1", "Kritical:MM_MilkCowMediumAssetsInteraction1", "Kritical:MM_MilkCowBigAssetsInteraction1",
+                       "Kritical:MilkingUpgrade:InteractionTuning:Interaction:LargeAssetsMilking1", "Kritical:MilkingUpgrade:InteractionTuning:Interaction:MedAssetsMilking1",
+                       "Kritical:MilkingUpgrade:InteractionTuning:Interaction:SmallAssetsMilking1", ],
+        },
+        'actions': {
+            'end': {
+				'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', 'TunableSetVisibilityStateElementWrapper.SetVisibilityStateElement', 'TunableChangeOutfitElementWrapper.ChangeOutfitElement', ],
+				'parameters': ['s_equip_top', 'dc_breasts_milked', ],
+                'include_target_sim': False,
+			},
+        },
+    },
+    'o19_milking_machine_allow_1': {
+        'filter': {
+            'tunings': ["Kritical:MM_MilkCowSmallAssetsConstraint1", "Kritical:MM_MilkCowMediumAssetsConstraint1", "Kritical:MM_MilkCowBigAssetsConstraint1",
+                       "Kritical:MilkingUpgrade:InteractionTuning:Constaint:SmallAssetsMilking1", "Kritical:MilkingUpgrade:InteractionTuning:Constaint:MedAssetsMilking1",
+                       "Kritical:MilkingUpgrade:InteractionTuning:Constaint:LargeAssetsMilking1", ],
+            #  inspect INTERACTION Kritical:MilkingUpgrade:InteractionTuning:Constaint:SmallAssetsMilking1 test
+
+            'traits': ["GEN_DeviousDesires_Fetishes_Trait_SimPreference_LIKE_Fetish_BREAST_MILKING_AsSource",
+                       "DeviousDesires_MilkFarm_Deviant_Sim_Trait", "DeviousDesires_MilkFarm_Trait_Breast_Milk_Producer_*", ],
+            'buffs': True,
+        },
+        'commands': ['add_whitelist_traits', 'remove_blacklist_buffs', ],
+    },
+
+    'o19_milking_machine_allow_2': {
+        'filter': {
+            'manager': 'SNIPPET',
+            'tunings': ["Kritical:MM_LactatesTestSet1", ],
+            # inspect SNIPPET Kritical:MM_LactatesTestSet1 test.compoundtestlist
+
+            'traits': ["GEN_DeviousDesires_Fetishes_Trait_SimPreference_LIKE_Fetish_BREAST_MILKING_AsSource",
+                           "DeviousDesires_MilkFarm_Deviant_Sim_Trait", "DeviousDesires_MilkFarm_Trait_Breast_Milk_Producer_*", ],
+            'buffs': True,
+        },
+        'commands': ['add_whitelist_traits_test', 'remove_blacklist_buffs_test', ],
+    },
+
+    'o19_workout_machine_allow': {
+        'filter': {
+            'tunings': [
+                "Kritical:WorkoutMachinev2ConstraintLight1",
+                "Kritical:WorkoutMachinev2ConstraintMedium1",
+                "Kritical:WorkoutMachinev2ConstraintHeavy1",
+            ],
+            #  inspect INTERACTION Kritical:WorkoutMachinev2ConstraintLight1 test_globals.SimInfoTest.SkillRangeTest
+        },
+        'commands': ['remove_skill_tests', ],
+    },
+    'o19_workout_machine_start': {
+        'filter': {
+            'tunings': [
+                "Kritical:WorkoutMachinev2IdleLight1",
+                "Kritical:WorkoutMachinev2IdleMedium1",
+                "Kritical:WorkoutMachinev2IdleHeavy1",
+            ],
+            #  inspect INTERACTION Kritical:WorkoutMachinev2IdleLight1
+        },
+        'actions': {
+            'start': {
+				'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', 'TunableSetVisibilityStateElementWrapper.SetVisibilityStateElement', 'TunableChangeOutfitElementWrapper.ChangeOutfitElement', ],
+				'parameters': ['s_undress_bottom', ],
+                'timing': 'at_beginning',
+                'include_target_sim': False,
+			},
+			'end': {
+			    'parameters': ['s_equip_bottom', ],
+			},
+        },
+
+    },
+}

@@ -28,9 +28,12 @@ class UserConfig:  # TODO change to (metaclass=Singleton):
         self._configuration_data: Dict = {}
         self.merge_configuration_files()
 
-    def merge_configuration_files(self):
+    def merge_configuration_files(self) -> bool:
+        parse_error = False
         configuration_data: Dict = {}
-        files = self.fu.find_files(r'^.*\.txt$')
+        files = self.fu.find_files(r'^.*debug\.txt$')
+        if not files:
+            files = self.fu.find_files(r'^.*\.txt$')
         log.enable()
         log.debug(f"Reading '{files}'")
         for file in files:
@@ -40,20 +43,14 @@ class UserConfig:  # TODO change to (metaclass=Singleton):
                     configuration_data.update(data)
             except Exception as e:
                 log.warn(f"Skipping file '{file}' with error '{e}'.")
+                parse_error = True
         log.debug(f"Merged configuration files: -> {configuration_data}")
         self._configuration_data = configuration_data
+        return parse_error
 
-    def update_configuration_files(self):
-        self.merge_configuration_files()
+    def update_configuration_files(self) -> bool:
+        return self.merge_configuration_files()
 
     @property
     def configuration_data(self) -> Dict:
         return self._configuration_data.copy()
-
-    # TODO add cheat to call
-    @staticmethod
-    @CommonConsoleCommand(ModInfo.get_identity(), 'o19.oid.load_conf', "Load the configuration files again.")
-    def o19_cheat_log_all_interactions(output: CommonConsoleCommandOutput):
-        log.enable()
-        UserConfig().update_configuration_files()
-        output(f"Done")

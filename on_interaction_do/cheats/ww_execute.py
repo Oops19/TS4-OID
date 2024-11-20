@@ -35,7 +35,7 @@ def cmd_o19_cheat_ww_execute(*args, _connection=None):
             interaction_id = CommonInteractionUtils.get_interaction_id(interaction)
             interaction_name = CommonInteractionUtils.get_interaction_short_name(interaction)
             if interaction_id in dwc.unsupported_interactions:
-                log.debug(f"\tInteraction '{interaction_name}' not supported.")
+                log.debug(f"\tIgnoring '{interaction_name}'.")
                 return
             if interaction_id in dwc.supported_interactions:
                 unknown_interaction = False

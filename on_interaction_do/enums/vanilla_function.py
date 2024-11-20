@@ -10,6 +10,15 @@ class VanillaFunction:
 
     # TODO - Everything below to be implemented
 
+    F_HAS_TRAIT = 'bg_has_trait'  # trait name or ID, exit if trait is missing
+    F_ADD_TRAIT = 'bg_add_trait'
+    F_ADD_BUFF = 'bg_add_buff'
+
+    F_ADD_VFX = 'bg_play_vfx'  # (id, bone, vfx-name)  # id=1-1000 to identify the effect. bone=bone name # TODO figure out best way to support chars in (...)
+    # currently only '1-9,.' are supported. TODO
+    F_STOP_VFX = 'bg_stop_vfx'  # (id)
+
+
     # Outfit related functions - BG
     F_UNDO_OUTFIT = 'bg_undo_outfit'
 

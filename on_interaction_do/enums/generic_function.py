@@ -12,7 +12,7 @@ class GenericFunction:
     NOP = 'nop'
     JOIN = '+'
 
-    F_REPEAT = 'g_repeat'  # append (n,0-999,0-99)  # n=Tuning Reference, t_max to repeat the command for this sim, delay between repeats
+    F_REPEAT = 'g_repeat'  # append (tunings_ref, 0-999,0-99)  # tunings_ref references the tunings, t_max to repeat the command for this sim, delay between repeats
     # Everything behind this command will be repeated.
 
     F_RANDOM = 'g_random'  # g_random(p) for a p% success change to continue (range: 1-99) with the next command
@@ -74,6 +74,8 @@ class GenericFunction:
     F_UNDRESS_TOP = 's_undress_top'  # Undo: p_wear_top
     F_UNDRESS_BOTTOM = 's_undress_bottom'  # Undo: p_wear_bottom
     F_UNDRESS_SHOES = 's_undress_shoes'
-    F_UNDRESS_NEXT = 's_undress_next'  # remove 1 cas part in a pre-defined order (HAT, SHOE, ...)
+
+    F_UNDRESS_NEXT = 's_undress_next'  # s_undress_next: Remove 1 cas part in a pre-defined order.
+                                       # TODO s_underss_next(1,2,3): Remove 1 cas part of these in a pre-defined order.
 
 

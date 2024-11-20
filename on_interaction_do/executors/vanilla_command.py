@@ -31,7 +31,7 @@ class VanillaCommand(metaclass=Singleton):
         elif function == VanillaFunction.F_IMPREGNATE:
             self._impregnate(sim_info, target_sim_info)
         else:
-            log.debug(f"Unknown function {function}")
+            log.debug(f"VC.process: Unknown function {function}")
         return True
 
     def _get_body_types(self, parameters) -> Set[int]:
