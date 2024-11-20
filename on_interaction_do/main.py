@@ -10,7 +10,6 @@ from on_interaction_do.cache.init_cache import InitCache
 from on_interaction_do.cheats.do_ww_command import DoWwCommand
 from on_interaction_do.modinfo import ModInfo
 from on_interaction_do.tune_game import TuneGame
-from on_interaction_do.tune_kritical import TuneKritical
 from on_interaction_do.user_config import UserConfig
 from sims4communitylib.events.event_handling.common_event_registry import CommonEventRegistry
 from sims4communitylib.events.zone_spin.events.zone_late_load import S4CLZoneLateLoadEvent
@@ -39,11 +38,6 @@ class Main:
             tg = TuneGame(uc.configuration_data)
             tg.start()
             ic.userconf = True
-
-        # Initialize interactions for CC by Kritical
-        if ic.kritical is False:
-            TuneKritical.start()
-            ic.kritical = True
 
         # Initialize ww cheat commands
         if ic.wwcheats is False:

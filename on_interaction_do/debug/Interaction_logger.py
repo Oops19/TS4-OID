@@ -28,7 +28,7 @@ class InteractionLogger(metaclass=Singleton):
 
 
     @staticmethod
-    @CommonConsoleCommand(ModInfo.get_identity(), 'o19.oid.debug.log', 'Log all interactions.')
+    @CommonConsoleCommand(ModInfo.get_identity(), 'o19.oid.log_sim', 'Log all interactions.')
     def o19_cheat_log_all_interactions(output: CommonConsoleCommandOutput):
         # output is already provided
         try:
@@ -45,7 +45,7 @@ class InteractionLogger(metaclass=Singleton):
             log.error(f"Oops: {e}", throw=True)
 
     @staticmethod
-    @CommonConsoleCommand(ModInfo.get_identity(), 'o19.oid.debug.log_pre_run', 'Log all interactions when they get added.')
+    @CommonConsoleCommand(ModInfo.get_identity(), 'o19.oid.log_sim_pre_run', 'Log all interactions when they get added.')
     def o19_cheat_log_all_pre_interactions(output: CommonConsoleCommandOutput):
         # output is already provided
         try:

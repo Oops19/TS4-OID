@@ -1,6 +1,5 @@
-OnInteractionDo v0.0.7 for The Sims 4 v1.110.311 and S4CL v3.9
-Created on 2024-11-16
-v0.0.7
-    Allow to modify trait and buff checks via script.
-    Replace 'tune_kritical.py' with 'cfg/o19_kritical.txt'
+OnInteractionDo v0.0.8 for The Sims 4 v1.110.311 and S4CL v3.9
+Created on 2024-11-20
+v0.0.8
+    Added configuration file for many base game / vanilla interactions
 

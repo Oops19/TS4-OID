@@ -28,10 +28,12 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.0.7'
+        return '0.0.8'
 
 
 '''
+v0.0.8
+    Added configuration file for many base game / vanilla interactions
 v0.0.7
     Allow to modify trait and buff checks via script.
     Replace 'tune_kritical.py' with 'cfg/o19_kritical.txt'

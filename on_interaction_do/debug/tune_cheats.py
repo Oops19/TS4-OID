@@ -9,15 +9,12 @@ from typing import Union, Any
 import services
 import sims4
 import sims4.resources
-from deviantcore.cas_part_system.enums.part_layer import DCPartLayer
-from deviousdesires.nudity_system.enums.part_handle_type import DDPartHandleType
-from deviousdesires.nudity_system.utils.nudity_system_utils import DDNuditySystemUtils
+
 
 from native.animation import NativeAsm
 from on_interaction_do.cheats.do_ww_command import DoWwCommand
 from on_interaction_do.modinfo import ModInfo
 from on_interaction_do.tune_game import TuneGame
-from on_interaction_do.tune_kritical import TuneKritical
 from on_interaction_do.user_config import UserConfig
 from sims.sim import Sim
 from sims4.hash_util import hash64
@@ -29,17 +26,8 @@ from sims4communitylib.utils.sims.common_sim_interaction_utils import CommonSimI
 from sims4communitylib.utils.sims.common_sim_utils import CommonSimUtils
 from ts4lib.utils.tuning_helper import TuningHelper
 
-class TuneCheats:
 
-    @staticmethod
-    @CommonConsoleCommand(ModInfo.get_identity(), 'o19.oid.xxx', "")
-    def o19_cheat_xxxxload_conf(output: CommonConsoleCommandOutput):
-        sim_info = CommonSimUtils.get_active_sim_info()
-        is_nude = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_BOTTOM, DCPartLayer.NUDE).result
-        is_under = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_BOTTOM, DCPartLayer.UNDERWEAR).result
-        is_strap = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_STRAPON, DCPartLayer.NUDE).result
-        is_out = not (is_nude or is_under or is_strap)
-        output(f"{sim_info} o={is_out} u={is_under} n={is_nude} d={is_strap}")
+class TuneCheats:
 
     @staticmethod
     @CommonConsoleCommand(ModInfo.get_identity(), 'o19.oid.patch', "Apply the loaded configuration again.'")
@@ -111,66 +99,18 @@ class TuneCheats:
         except Exception as e:
             output(f"Oops: {e}")
 
-    # deprecated
     @staticmethod
-    @CommonConsoleCommand(ModInfo.get_identity(), 'o19.oid.deprecated.run_kritical', "Re-run 'Kritical'")
-    def o19_cheat_log_all_interactions(output: CommonConsoleCommandOutput):
-        th = TuningHelper()
-        th.verbose = True
-        TuneKritical.start()
-        th.verbose = False
-        output(f"Done")
-
-    # deprecated
-    @staticmethod
-    @CommonConsoleCommand(ModInfo.get_identity(), 'o19.oid.deprecated.run_vanilla', "Re-run 'Vanilla'")
-    def o19_cheat_log_all_interactions(output: CommonConsoleCommandOutput):
-        th = TuningHelper()
-        th.verbose = True
-        uc = UserConfig()
-        user_data = uc.configuration_data
-        TuneGame(user_data).start()
-        th.verbose = False
-        output(f"Done")
-
-# deprecated
-@CommonConsoleCommand(ModInfo.get_identity(), 'o19.oid.deprecated.feet', 'Undress shoes.')
-def cmd_o19_kri_feet(output: CommonConsoleCommandOutput):
-    def _setup_asm_default(self, interaction_sim: Sim, interaction_target: Any, interaction_asm: NativeAsm, *args, **kwargs) -> Union[bool, None]:
-        target_sim_info = CommonSimUtils.get_sim_info(interaction_target)
-        from deviousdesires.nudity_system.utils.nudity_system_utils import DDNuditySystemUtils
-        equipment_part_handle = DDNuditySystemUtils().get_equipment_part_handle_from_handle_type(self.part_handle)
-        current_layer = equipment_part_handle.get_current_layer(target_sim_info)
-        interaction_asm.set_parameter('current_undress_layer', current_layer.name.lower())
-        interaction_asm.set_parameter('to_undress_layer', self.to_layer.name.lower())
-        # We return None here to indicate that we do not want to replace the original asm.
-        return None
-
-    try:
-        sim_info: SimInfo = CommonSimUtils.get_active_sim_info()
-        sim: Sim = CommonSimUtils.get_sim_instance(sim_info)
-        # interaction_asm: NativeAsm = None
-        # _setup_asm_default(sim, sim, interaction_asm)
-
-        anim_prefix = 'GEN_DeviousDesires_Nudity_Interaction_ModifyEquipment_ByPartHandleAnimated'
-        undress_anim = 'NUDE_EQUIPMENT_FEET'
-        interaction_id = hash64(f"{anim_prefix}_{undress_anim}")
-        high_value = 1 << (64 - 1)
-        interaction_id = interaction_id | high_value
-        output(f"{sim_info}: {interaction_id}")
-        result = CommonSimInteractionUtils.queue_interaction(sim_info, interaction_id, target=sim)
-        output(f"OK {result}")
-    except Exception as e:
-        output(f"Oops: {e}")
-
-# deprecated
-@CommonConsoleCommand(ModInfo.get_identity(), 'o19.oid.print_gender', 'Whatever.')
-def cmd_o19_gender_info(output: CommonConsoleCommandOutput):
-    try:
-        sim_info: SimInfo = CommonSimUtils.get_active_sim_info()
-        output(f"M={CommonGenderUtils.is_male(sim_info)} F={CommonGenderUtils.is_female(sim_info)}")
-    except Exception as e:
-        output(f"Oops: {e}")
-
-
-
+    @CommonConsoleCommand(ModInfo.get_identity(), 'o19.oid.info_am_bottom', "")
+    def o19_cheat_print_outfit_modifiers(output: CommonConsoleCommandOutput):
+        try:
+            from deviantcore.cas_part_system.enums.part_layer import DCPartLayer
+            from deviousdesires.nudity_system.enums.part_handle_type import DDPartHandleType
+            from deviousdesires.nudity_system.utils.nudity_system_utils import DDNuditySystemUtils
+            sim_info = CommonSimUtils.get_active_sim_info()
+            is_nude = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_BOTTOM, DCPartLayer.NUDE).result
+            is_under = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_BOTTOM, DCPartLayer.UNDERWEAR).result
+            is_strap = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, DDPartHandleType.EQUIPMENT_STRAPON, DCPartLayer.NUDE).result
+            is_out = not (is_nude or is_under or is_strap)
+            output(f"{sim_info} o={is_out} u={is_under} n={is_nude} d={is_strap}")
+        except Exception as e:
+            output(f"Error: {e}")

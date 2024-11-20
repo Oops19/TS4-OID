@@ -18,16 +18,24 @@ This mod does not
 * add new items
 * include or override UGC created by other mod creators
 
-
 ## Base Game
-For the base game there are a few interactions.ase game interactions wi
+For the base game there are a few interactions.
 Some base game interactions may result in removed outfit parts for sims.
 
-### Vanilla Toilet
-* Sims will undress when they use the toilet.
+### Shower
+* Sims will turn around in shower instead of watching the wall.
 
-### ?
-There is more, I'm sure there is
+### Vanilla 'Pillow Fight ...'
+* Sims will undress their shoes and might lose outfit parts.
+
+### Using Toilet
+* Configuration removed. Handled and hardcoded in DD.
+
+### Feeding Baby
+* Configuration removed. Handled and hardcoded in DD.
+
+### Play Sabbac
+* Losers undress am outfit item.
 
 
 ## 3rd party mods and build items
@@ -46,31 +54,29 @@ Just make sure to remove these script mods:
 * `[Kritical]PracticalSexArcade1.ts4script`  # and/or similar versions
 
 The following devices are supported:
-* `[Kritical]StyxUrinal.package` - Version 1h
-* `[Kritical]PracticalSexArcade.package` - Version 1i
-* `[Kritical]BlowjobArcade.package` - Version 1c
-* `[Kritical]LetheUrinal.package` - Version 1a
-* `[Kritical]MilkingMachine1.package`
-* ...
-* `[Kritical]ExerciseBike.package` - Version 1b
-* `[Kritical]SensoryDeprivationChamber.package` - Version 1a
-* `[Kritical]Thighmaster.package` - Version 1
-* 
-* `[Kritical]FeedingMachine.package` - Version 1d
-* `[Kritical]MilkingMachine.package` - Version 1c
-
-Not supported / No interaction:
-* `[Kritical]CeladonUrinal.package` - Version 1a
+* `[Kritical]BlowjobArcade1d.package`
+* `[Kritical]CeladonUrinal1a.package`
+* `[Kritical]ExerciseBike1b.package`
+* `[Kritical]FeedingMachine1d.package`
+* `[Kritical]LetheUrinal1a.package`
+* `[Kritical]MajesticHole1f.package`
+* `[Kritical]MilkingMachine1d.package`
+* `[Kritical]PracticalSexArcade1j.package`
+* `[Kritical]SensoryDeprivationChamber1a.package`
+* `[Kritical]StyxUrinal1h.package`
+* `[Kritical]TanningRack1a.package`
+* `[Kritical]Thighmaster1a.package`
+* `[Kritical]WorkoutMachineFreya1a.package`
 
 This mod has been tested with the versions mentioned above.
-
-To lower the pee time for the 'LetheUrinal' install PatchXML.
 
 The mod injects into the interactions to make them compatible with DD.
 
 
 #### Issues
-Commands may be executed shortly after an interaction starts and shortly before an interaction stops. It's not perfect but hopefully good enough for TS4.
+Commands may be executed shortly after an interaction starts and shortly before an interaction stops.
+It's not perfect but hopefully good enough for TS4.
+Some of the issues mentioned below may have been fixed so far.
 
 ##### Sex and BJ Arcade
 * Customers will undress the lower body and dress up afterwards properly, the initial state (nude, underwear, outfit) will be restored.
@@ -88,36 +94,68 @@ Commands may be executed shortly after an interaction starts and shortly before 
 * Sims will no longer fade-out and fade-in as it didn't work reliable for me.
 * Pregnant sims can milk themselves.
 
-### Customization
-#### Gather the interaction IDs with S4CL
+## Customized Custom User Customization
+You read the title successfully, so you may start to adjust random vanilla and/or mod interactions as you like.
+
+#### Gather the interaction IDs
+There are two options to get interaction IDs
+
+##### Log interaction IDs
+* Press Shift+Ctrl+C to open the debug console
+* Enter `o19.oid.log_sim` to log the queued interactions of the active sim.
+* Optionally, this is usually Not Needed, log the pre-run interactions with  `o19.oid.log_sim_pre_run`
+* Run the command again to disable logging.
+
+##### Gather the interaction IDs with S4CL
 * Pause the game and click on object X and select the interaction. It will be queued in the interaction Q.
 * Sim+Shift-click > S4CL > Show running interactions to ge the IDs/Names or running and/or queued interactions.
 * Un-pause the game and wait until the sim is using the object.
 * Shift-click > S4CL > Show running interactions to ge the IDs/Names or running and/or queued interactions.
 * The 'interact' and the 'interacting' interactions may be two different ones.
 
-##### Sample
-With the two Names and/od IDs create your own customization.
+##### Create Configuration File
+* Use your name and replace `author` (unless everyone calls you 'author' already).
+* Replace `interaction_description` with the intention of the modification.
+* Replace the `tunings` value with the interaction name(s), e.g. `celebrity_Self_PoseforPicture`.
+  * Optionally use S4S to search for similar interactions (with `interaction/celebrity_Self_`). There you'll find 3.
+  * You could add these 3 interactions or `celebrity_Self_` - in case a new self interaction is added your customization will modify it without any update.
+* Then we need an idea what to do. For now add `g_debug_alert(celeb)` and `g_info_alert(celeb)`.
+* Save the file to `mod_data/on_interaction_do/cfg/` and hope you didn't break it.
+  * Optionally validate the contents with https://codebeautify.org/python-formatter-beautifier
+* Reload the data with `o19.oid.patch` or `o19.oid.patch_verbose` which logs more data while patching to TS4-Library_*_Messages.txt.
+  * In case the file is broken validate it with https://codebeautify.org/python-formatter-beautifier
 ```json
 {
-    "author_interaction_description*": {
+    "author_interaction_description*": {  # TODO adjust
         "filter": {
             "tunings": ["TuningName_as_logged_by_S4CL", "TuningName_2_as_logged_by_S4CL", ],
         },
         "actions": {
-            "start_of_animation*": {
+            "start_of_animation*": {  # TODO adjust
 				"parameters": ["g_debug_alert(111)", ],
                 "timing": "at_beginning",
             },
-            "end_of_animation*": {
+            "end_of_animation*": {  # TODO adjust
                 "parameters": ["g_info_alert(111)", ],
 			},
         },
     },
 }
 ```
-The keywords 'filter, tunings, actions, parameters, timing' must not be modified.
-Adjust the keywords ending with '*' to match your needs.
+* The keywords 'filter, tunings, actions, parameters, timing' must not be modified.
+* Adjust the keywords ending with '*' to match your needs.
+* Unlike `json` comments are supported and `,}` and/or `,]` work fine. This allows to add new lines / statements without appending,` to the line above.
+
+* Run again the interaction - with a random sim - and enjoy the modified configuration.
+
+##### debug.txt
+In case too much is going and/or patched save the file as 'debug.txt' or 'author_debug.txt'.
+In case one or more debug files exist it/they will be read and applied - the standard configuration is ignored.
+To 'undo' all applied modifications restart the game and then test the debug settings.
+Reload them with `o19.oid.patch`.
+
+After testing copy the contents to a regular configuration file and delete the/all debug file(s).
+With `o19.oid.patch` the files will be read and applied again, without restarting the game.
 
 # Addendum
 
