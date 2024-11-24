@@ -2,8 +2,7 @@
 # LICENSE https://creativecommons.org/licenses/by/4.0/ https://creativecommons.org/licenses/by/4.0/legalcode
 # © 2024 https://github.com/Oops19
 #
-
-
+import re
 from typing import Dict, Union, List, Set
 
 from event_testing.tests import CompoundTestList, TestList
@@ -152,10 +151,14 @@ class TuneGame:
                         else:
                             log.debug(f"No tunings found for '{command}'")
                     elif command == 'remove_blacklist_buffs_test':
-
                         self.tuning_helper.modify_test(tuning_dict, remove_blacklist_buffs=buff_tunings)
+
                     elif command == 'remove_skill_tests':
                         self.tuning_helper.remove_skill_test(tuning_dict)
+
+                    elif command.startswith('drop_tg_'):
+                        _command = re.sub(r'^drop_tg_', '', command)
+                        self.tuning_helper.remove_test_globals_test(tuning_dict, _command)
 
                     else:
                         log.debug(f"Skipping unknown command '{command}'")

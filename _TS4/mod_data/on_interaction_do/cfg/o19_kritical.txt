@@ -302,7 +302,8 @@
             ],
             #  inspect INTERACTION Kritical:WorkoutMachinev2ConstraintLight1 test_globals.SimInfoTest.SkillRangeTest
         },
-        'commands': ['remove_skill_tests', ],
+        # 'commands': ['remove_skill_tests', ],
+        'commands': ['drop_tg_SkillRangeTest', ],
     },
     'o19_workout_machine_start': {
         'filter': {

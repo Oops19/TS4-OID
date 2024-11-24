@@ -25,9 +25,6 @@ class GenericFunction:
 
     F_OPACITY = 'g_opacity'  # append (0-1,0-99) - float values for opacity and fade duration
 
-    P_SELECT_ACTOR_SIM = 'g_select_actor_sim'  # The default
-    P_SELECT_TARGET_SIM = 'g_select_target_sim'  # Not set for all interactions
-
     """
     g_repeat(n: int, t_max: int = 10_000, t_delay: int = 60)  n as Tuning Reference, t_max for the maximum time, t_delay between repeats
     The current sim will repeatedly execute the remaining functions after `g_repeat(...)+`
@@ -59,8 +56,8 @@ class GenericFunction:
     They should be used so the mod can decide what function to use.
     Unless there is a reason to limit functionality to BG or DC.
     """
-    F_UNDRESS_CAS_PARTS = 's_undress_cas_parts'  # append (1-3,8-10) - the body parts to remove, (1-200) to remove everything incl. tattoos, scars, makeup, rings, ...
-    F_EQUIP_CAS_PARTS = 's_equip_cas_parts'  # append (1-3, 8-10, HAT) - these body parts will be to added
+    F_UNDRESS_CAS_PARTS = 's_undress_cas_parts'  # append (5, 6, 7) - the body parts to remove
+    F_EQUIP_CAS_PARTS = 's_equip_cas_parts'  # append (1, 2, 3, 8, 9, 10) - these body parts will be to added
 
     F_EQUIP_ALL = 's_equip_all'
     F_EQUIP_FULL = 's_equip_full'
@@ -79,3 +76,6 @@ class GenericFunction:
                                        # TODO s_underss_next(1,2,3): Remove 1 cas part of these in a pre-defined order.
 
 
+    # TODO
+    P_SELECT_ACTOR_SIM = 'g_select_actor_sim'  # The default
+    P_SELECT_TARGET_SIM = 'g_select_target_sim'  # Not set for all interactions

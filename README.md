@@ -157,6 +157,111 @@ Reload them with `o19.oid.patch`.
 After testing copy the contents to a regular configuration file and delete the/all debug file(s).
 With `o19.oid.patch` the files will be read and applied again, without restarting the game.
 
+### Supported 'actions'
+To modify how interactions start or end some commands are available.
+Some additional settings are also available and shown below.
+```json
+{
+    "author_interaction_description*": {
+        'actions': {
+            "start_of_animation*": {
+                'drop_all_basic_extras': True,  # drop everything with <I><L n="basic_extras">[...]</L>
+                'drop_basic_extras': [  # or drop individual elements within <I><L n="basic_extras">, supported are
+                    'TunableBroadcasterRequestWrapper.BroadcasterRequest',
+                    'TunableBuffElementWrapper.factory',
+                    'TunableChangeOutfitElementWrapper.ChangeOutfitElement',
+                    'TunableDoCommandWrapper.DoCommand',
+                    'TunableLootElementWrapper.LootElement',
+                    'TunableNotificationElementWrapper.NotificationElement',
+                    'TunablePlayVisualEffectElementWrapper.PlayVisualEffectElement',
+                    'TunablePregnancyElementWrapper.PregnancyElement',
+                    'TunableStateChangeWrapper._factory',
+                    'TunableTunableAudioStingWrapper.TunableAudioSting',
+                ],
+                'timing': 'at_beginning',  # or 'at_end' or 'on_xevt'
+                'offset_time': 5,  # optionally, only valid for 'at_beginning'
+                'xevt_id': 123,  # only valid for 'on_xevt'
+                'include_target_sim': True,  # can be set to False
+                'include_target_object': False,  # setting this to True sets  include_target_sim=False
+                'parameters': ['...', ],
+            },
+        },
+    },
+}
+```
+For `parameters` these commands are available:
+* `g_repeat(tunings_ref, 900, 30)` - Repeat the following commands for max. 900 seconds, every 30 seconds, while the sim is running one of the interactions in "filter.tunings".
+* `g_random(10)` - 10% change to continue with the next command (range 1-99)
+* `g_rotate_abs(340)` - Rotate the sim slowly to -20° (range 1-359)
+* `g_rotate_rnd(180, 10)` - Rotate the sim slowly to a position between -170° - 190° (180° ± 10°) - range(1-359, 1-179)
+* `g_rotate_end` - Stop the rotation before it completed.
+* `g_opacity(0.8, 10)` - Fade the sim to 80%% opacity within 10 seconds. range(0.0-1.0, 0-30)
+* `g_debug_info(Message)` - Show a blue popup for debug purposes.
+* `g_debug_alert(Message)` - Show an orange popup for debug purposes.
+* `bg_impregnate` - Impregnate the target sim (target sim must be set !)
+* `s_undo_outfit` - Undo outfit changes created by one of the following parameters at the end of the interaction.
+* `s_undo_outfit(200)` - In case the interaction is still running after 200s undo the outfit change. (range 1-999)
+* `s_undo_outfit(200, 30)` - As above, but wait 30 seconds before undo.
+* `s_undress_cas_parts(5, 6, 7)` - Remove CAS / body types from the sim. 5=FULL_BODY, 6=TOP, 7=BOTTOM (range 1-200, not every part is supported)
+* `s_equip_cas_parts` - Equip CAS / body types
+* `s_undress_all`, `s_undress_full`, `s_undress_top`, `s_undress_bottom`, `s_undress_shoes` - Remove CAS parts
+* `s_equip_all`, `s_equip_full`, `s_equip_top`, `s_equip_bottom` - Add CAS parts
+* `s_undress_next` - Remove one CAS part. The types and order is pre-defined. Might be called in a loop.
+* `s_undress_next(7, 6)` - Remove one CAS part in the specified order. Might be called in a loop.
+
+### Supported 'filters'
+Usually it is fine just to specify `tunings`.
+
+The default tuning manager is 'INTERACTION', this can be modified if needed.
+The configuration files of this mod always call their own cheat command 'o19.oid.do_command' (default) which can also be modified.
+One call can call cheat commands of random mods while the supplied command parameters will usually not match.
+A list of buffs and traits can also be generated to be used by 'commands'.
+The 'tunings' can be specified as strings starting and or ending with '*' for wildcards.
+Use wildcards with care, `*a*` matches almost all tunings and may cause out of memory issues and take less than eternity to complete.
+
+```json
+{
+    "author_interaction_description*": {
+      "filter": {
+        'traits': ['...', ],
+        'buffs': ['...', ],
+        'manager': 'INTERACTION',  # or 'SNIPPET' to modify a snippet tuning
+        'tunings': ['...', ],
+        'command': 'o19.oid.do_command',
+      }, ...
+```
+
+### Supported 'commands'
+Within 'commands' a few special commands are supported. It contains a list of 1-n commands.
+```json
+{
+    "author_interaction_description*": {
+        "filter": {
+            'traits': ['...' ],
+            'buffs': ['...' ],
+            ...
+        },
+        "commands": [
+            ...
+        ]
+    }
+}
+```
+* `remove_privacy` Remove privacy checks (`<I>[<V n="privacy" ...</V>]`)
+* `no_gender_check` Remove gender checks (`<I><L n="test_globals">[<E n="gender">...</E>]`)
+* `drop_tg_TEST` with TEST=BuffTest, CareerGigTest, CommodityAdvertisedTest, SimInfoTest, SkillRangeTest, TraitTest
+  * `drop_tg_BuffTest` removes all Buff tests from 'test_globals'. This might cause issues for further tests.
+* `ACTION_LIST_TYPE` Eight commands with ACTION=add or remove, LIST=whitelist or blacklist and TYPE=buffs or traits from test_globals
+  * `add_whitelist_buffs` `add_blacklist_buffs` `add_whitelist_traits` `add_blacklist_traits` 
+  * `remove_whitelist_buffs` `remove_whitelist_buffs` `remove_blacklist_traits` `remove_blacklist_traits`
+  * All six other variations work like these two samples:
+  * `add_whitelist_traits` Add the 'filter.traits' to the allow list
+  * `remove_blacklist_buffs` Remove the 'filter.buffs' from the deny list. Set 'filter.buffs' to 'True' to remove everything.
+  * To add buffs and two remove other buffs two `author_interaction_description` sections are needed as only one `buffs` and `traits` section exist.
+* `ACTION_LIST_TYPE_test` Eight commands with ACTION=add or remove, LIST=whitelist or blacklist and TYPE=buffs or traits from `n="testSet..."` tunings ().
+  * `add_whitelist_buffs_test`, ...  see above for details.
+
+
 # Addendum
 
 ## Game compatibility

@@ -28,10 +28,13 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.0.8'
+        return '0.0.9'
 
 
 '''
+v0.0.9
+    TuneGame refactoring
+    Add support for GLOVES (HANDS)
 v0.0.8
     Added configuration file for many base game / vanilla interactions
 v0.0.7

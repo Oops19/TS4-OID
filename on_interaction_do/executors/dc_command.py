@@ -384,11 +384,12 @@ class DcCommand: # TODO support reload .... (metaclass=Singleton):
             5: DDPartHandleType.EQUIPMENT_FULL_BODY,
             6: DDPartHandleType.EQUIPMENT_TOP,
             7: DDPartHandleType.EQUIPMENT_BOTTOM,
-            8: DDPartHandleType.EQUIPMENT_FEET,
+            8: DDPartHandleType.EQUIPMENT_FEET,  # SHOES
             9: DDPartHandleType.EQUIPMENT_CUMMERBUND,
             10: DDPartHandleType.EQUIPMENT_EARRINGS,
             11: DDPartHandleType.EQUIPMENT_GLASSES,
             12: DDPartHandleType.EQUIPMENT_NECKLACE,
+            13: DDPartHandleType.EQUIPMENT_HANDS,  # GLOVES
             14: DDPartHandleType.EQUIPMENT_WRIST_LEFT,
             15: DDPartHandleType.EQUIPMENT_WRIST_RIGHT,
             36: DDPartHandleType.EQUIPMENT_SOCKS,

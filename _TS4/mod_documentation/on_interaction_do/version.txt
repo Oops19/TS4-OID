@@ -1,5 +1,5 @@
-OnInteractionDo v0.0.8 for The Sims 4 v1.110.311 and S4CL v3.9
-Created on 2024-11-20
-v0.0.8
-    Added configuration file for many base game / vanilla interactions
+OnInteractionDo v0.0.9 for The Sims 4 v1.110.311 and S4CL v3.9
+Created on 2024-11-21
+v0.0.9
+    TuneGame refactoring
 

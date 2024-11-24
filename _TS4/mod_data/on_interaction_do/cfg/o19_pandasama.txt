@@ -1,14 +1,15 @@
 
 {
-	# This one is broken, at least in water- Sim gets transparent before getting the baby and when the born animation shows the baby it's normal again
-	# Might work better in bed ?
+    # This works, but not as expected. Semi-transparent parts of the sim get hidden when below the semi-transparent water surface.
+    # The born object is linked to the sim giving birth and as such transparency applies to it.
+    # This can't be fixed with this tuning, it's caused by the animation / object spawning.
     'o19_cbm_give_birth_water': {  # random name
         'filter': {  # 'filter', do not modify
             'tunings': ['pandasama:Birth_Tub_birth_continuation', ],  # required parameter
         },
         'actions': {  # 'actions', do not modify
             'start_giving_birth': {  # random name
-                'parameters': ['g_opacity(0.6, 3)', ],  # required parameter - opacity(opacity-value, fade-duration)
+                'parameters': ['g_opacity(0.9, 3)', ],  # required parameter - opacity(opacity-value, fade-duration)
                 'timing': 'at_beginning',
             },
             'baby_born': {
@@ -18,12 +19,12 @@
         },
     },
 
-    'o19_cbm_milk_pump': {  # random name
-        'filter': {  # 'filter', do not modify
+    'o19_cbm_milk_pump': {
+        'filter': {
             'tunings': ['pandasama:milkpump_Left', 'pandasama:milkpump_Right', ],
         },
         'actions': {
-            'start': {  # random name
+            'start': {
                 'drop_all_basic_extras': True,
                 'timing': 'at_beginning',
                 'parameters': ['s_undress_top', ],
