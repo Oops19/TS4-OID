@@ -53,6 +53,8 @@ class DcCommand: # TODO support reload .... (metaclass=Singleton):
             self._remove_strap_on(sim_info)
         elif function == DcFunction.F_LOWER_PENIS:
             self._flaccid_penis(sim_info)
+        elif function == DcFunction.F_PENIS_ORGASM:
+            self._penis_orgasm(parameters, sim_info)
 
         elif function == DcFunction.F_PENIS_MILKED:
             self._penis_milked(function, parameters, interaction_id, sim_id, sim_info, target_id, target_sim_info, target_object, funcs_with_params)
@@ -77,7 +79,6 @@ class DcCommand: # TODO support reload .... (metaclass=Singleton):
                 self._undress_shoes(sim_info)
             elif function == DcFunction.F_UNDRESS_NEXT:
                 self._undress_next(sim_info, parameters)
-            #
             else:
                 log.debug(f"DC.process: Unknown undress function {function}")
         elif function.startswith(DcFunction.F_EQUIP_PREFIX):
@@ -139,7 +140,7 @@ class DcCommand: # TODO support reload .... (metaclass=Singleton):
             pass
         return True
 
-    def _penis_orgasm(self, function: str, parameters: List, interaction_id: int, sim_id: int, sim_info: SimInfo, target_id: int, target_sim_info: SimInfo, target_object: GameObject, funcs_with_params: str = None) -> bool:
+    def _penis_orgasm(self, parameters: List, sim_info: SimInfo) -> bool:
         if DcCache.failure:
             return True
         if DCSexualOrganUtils().has_penis(sim_info):

@@ -232,7 +232,30 @@
         'commands': ['no_gender_check', ],
     },
 
-
+    'o19_wall_hole_start': {
+        'filter': {
+            'tunings': ["Kritical:HoeWallCustomerConstraintMale-Protected1",
+                        "Kritical:HoeWallCustomerConstraintMale-Unprotected1", ],
+        },
+        'actions': {
+            'start': {
+				'drop_basic_extras': ['TunableDoCommandWrapper.DoCommand', ],
+				'parameters': ['s_undress_bottom', 'dc_raise_genital', ],
+                'timing': 'at_beginning',
+			},
+            'pregnancy_test': {
+				'parameters': ['g_random(3)', 'bg_impregnate', ],  # 3% pregnancy chance
+                'timing': 'at_beginning',
+                'offset_time': 30,
+			},
+        },
+    },
+    'o19_wall_hole_remove_gender_check': {
+        'filter': {
+            'tunings': ["Kritical:HoeWallCustomerConstraintMale-Protected1", ],
+        },
+        'commands': ['no_gender_check', ],
+    },
 
     'o19_milking_machine_1': {
         'filter': {

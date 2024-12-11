@@ -28,10 +28,13 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.0.9'
+        return '0.0.10'
 
 
 '''
+v0.0.10
+    Wall hole support
+    More milk support
 v0.0.9
     TuneGame refactoring
     Add support for GLOVES (HANDS)
