@@ -4,8 +4,6 @@
 #
 
 
-from typing import Union
-
 from on_interaction_do.cache.init_cache import InitCache
 from on_interaction_do.cheats.do_ww_command import DoWwCommand
 from on_interaction_do.modinfo import ModInfo
@@ -23,8 +21,9 @@ log.debug(f"Starting {ModInfo.get_identity().name} v{ModInfo.get_identity().vers
 class Main:
 
     def __init__(self):
-        self.uc: Union[UserConfig, None] = None
-        self.ic: Union[InitCache, None] = None
+        """ ... """
+        # self.uc: Union[UserConfig, None] = None
+        # self.ic: Union[InitCache, None] = None
 
     @staticmethod
     @CommonEventRegistry.handle_events(ModInfo.get_identity().name)
@@ -43,3 +42,6 @@ class Main:
         if ic.wwcheats is False:
             DoWwCommand()
             ic.wwcheats = True
+
+
+Main()

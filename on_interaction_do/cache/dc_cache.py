@@ -24,6 +24,7 @@ class DcCache(metaclass=Singleton):
             from deviousdesires.nudity_system.utils.penis_state_utils import DDPenisStateUtils
             from deviousdesires.sex.enums.string_ids import DDSexSystemStringId
             self._failure = False
+            log.info(f"'DC/DD detected.")
         except Exception as e:
             log.warn(f"Could not import all required libraries! ({e})")
             log.warn(f"'DC/DD will do nothing!")
@@ -43,3 +44,6 @@ class DcCache(metaclass=Singleton):
     @property
     def is_available(self) -> bool:
         return not self._failure
+
+
+DcCache()

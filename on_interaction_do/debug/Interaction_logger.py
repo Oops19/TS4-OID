@@ -6,7 +6,6 @@
 
 from typing import Set, Union
 
-from interactions.base.interaction import Interaction
 from on_interaction_do.modinfo import ModInfo
 from sims4communitylib.events.event_handling.common_event_registry import CommonEventRegistry
 from sims4communitylib.events.interaction.events.interaction_pre_run import S4CLInteractionPreRunEvent
@@ -25,7 +24,6 @@ class InteractionLogger(metaclass=Singleton):
     def __init__(self):
         self.sim_ids: Set[int] = set()
         self.sim_pre_ids: Set[int] = set()
-
 
     @staticmethod
     @CommonConsoleCommand(ModInfo.get_identity(), 'o19.oid.log_sim', 'Log all interactions.')

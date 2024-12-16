@@ -10,8 +10,6 @@ import os
 from typing import Dict
 
 from on_interaction_do.modinfo import ModInfo
-from sims4communitylib.services.commands.common_console_command import CommonConsoleCommand
-from sims4communitylib.services.commands.common_console_command_output import CommonConsoleCommandOutput
 from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
 from ts4lib.libraries.file_utils import FileUtils
 from ts4lib.libraries.ts4folders import TS4Folders

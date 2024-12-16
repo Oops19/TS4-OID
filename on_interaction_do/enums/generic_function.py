@@ -73,8 +73,7 @@ class GenericFunction:
     F_UNDRESS_SHOES = 's_undress_shoes'
 
     F_UNDRESS_NEXT = 's_undress_next'  # s_undress_next: Remove 1 cas part in a pre-defined order.
-                                       # TODO s_underss_next(1,2,3): Remove 1 cas part of these in a pre-defined order.
-
+    # TODO s_underss_next(1,2,3): Remove 1 cas part of these in a pre-defined order.
 
     # TODO
     P_SELECT_ACTOR_SIM = 'g_select_actor_sim'  # The default

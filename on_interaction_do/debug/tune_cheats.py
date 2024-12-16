@@ -4,25 +4,13 @@
 #
 
 
-from typing import Union, Any
-
-import services
-import sims4
-import sims4.resources
-
-
-from native.animation import NativeAsm
 from on_interaction_do.cheats.do_ww_command import DoWwCommand
 from on_interaction_do.modinfo import ModInfo
 from on_interaction_do.tune_game import TuneGame
 from on_interaction_do.user_config import UserConfig
-from sims.sim import Sim
-from sims4.hash_util import hash64
 from sims.sim_info import SimInfo
 from sims4communitylib.services.commands.common_console_command import CommonConsoleCommand
 from sims4communitylib.services.commands.common_console_command_output import CommonConsoleCommandOutput
-from sims4communitylib.utils.sims.common_gender_utils import CommonGenderUtils
-from sims4communitylib.utils.sims.common_sim_interaction_utils import CommonSimInteractionUtils
 from sims4communitylib.utils.sims.common_sim_utils import CommonSimUtils
 from ts4lib.utils.tuning_helper import TuningHelper
 
@@ -80,6 +68,7 @@ class TuneCheats:
         output(f"s={dwc.supported_interactions}")
         output(f"u={dwc.unsupported_interactions}")
 
+    @staticmethod
     @CommonConsoleCommand(ModInfo.get_identity(), 'o19.oid.debug.info_am', 'Print appearance modifiers.')
     def cmd_o19_layer_info(output: CommonConsoleCommandOutput):
         try:

@@ -7,7 +7,7 @@
 import math
 import re
 import time
-from typing import Union, List
+from typing import Union
 
 import services
 import sims4

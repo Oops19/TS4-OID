@@ -32,7 +32,7 @@ log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity(), 'D
 log.enable()
 
 
-class DcCommand: # TODO support reload .... (metaclass=Singleton):
+class DcCommand:  # TODO support reload .... (metaclass=Singleton):
     def __init__(self):
         pass
 
@@ -141,7 +141,7 @@ class DcCommand: # TODO support reload .... (metaclass=Singleton):
         return True
 
     def _penis_orgasm(self, parameters: List, sim_info: SimInfo) -> bool:
-        if DcCache.failure:
+        if DcCache().failure:
             return True
         if DCSexualOrganUtils().has_penis(sim_info):
             try:
@@ -160,7 +160,7 @@ class DcCommand: # TODO support reload .... (metaclass=Singleton):
         return True
 
     def _penis_milked(self, function: str, parameters: List, interaction_id: int, sim_id: int, sim_info: SimInfo, target_id: int, target_sim_info: SimInfo, target_object: GameObject, funcs_with_params: str = None) -> bool:
-        if DcCache.failure:
+        if DcCache().failure:
             return True
         if DCSexualOrganUtils().has_penis(sim_info):
             try:
@@ -179,21 +179,13 @@ class DcCommand: # TODO support reload .... (metaclass=Singleton):
         return True
 
     def _breast_milked(self, function: str, parameters: List, interaction_id: int, sim_id: int, sim_info: SimInfo, target_id: int, target_sim_info: SimInfo, target_object: GameObject, funcs_with_params: str = None) -> bool:
-        if DcCache.failure:
+        if DcCache().failure:
             return True
         if DCSexualOrganUtils().has_breasts(sim_info):
             try:
                 multiplier = abs(float(parameters[0]))
             except:
                 multiplier = 3
-            from deviousdesires_milk_farm.settings.setting_utils import DDMilkFarmSettingUtils
-            from deviousdesires_milk_farm.utils.sim_milk_utils import DDMFSimMilkUtils
-            from deviousdesires_milk_farm.mobile_milking.components.sim_milking_component import DDSimMilkingComponent
-            body_location = DCBodyLocation.CHEST  # DDMFBodyLocation.BREASTS
-            milking_component: DDSimMilkingComponent = DDSimMilkingComponent(sim_info, (body_location,))
-            amount = DDMilkFarmSettingUtils.get_milk_or_cum_amount_per_bottle() * multiplier
-            milking_component._sim_milk_utils.change_milk_level(milking_component._sim_info, body_location, -amount)
-            log.debug(f"Milked {amount:.2f} ({multiplier:.2f} bottles with {DDMilkFarmSettingUtils.get_milk_or_cum_amount_per_bottle():.2f})")
             try:
                 # optionally: multiplier = ... based on buff / production levels
                 from deviousdesires_milk_farm.settings.setting_utils import DDMilkFarmSettingUtils
@@ -424,7 +416,6 @@ class DcCommand: # TODO support reload .... (metaclass=Singleton):
                 DDNuditySystemUtils().set_equipment_part_to_layer_by_type(sim_info, undress_part, DCPartLayer.NUDE)
                 break
 
-
             _is_nude = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, undress_part, DCPartLayer.NUDE).result
             _is_underwear = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, undress_part, DCPartLayer.UNDERWEAR).result
             _is_outerwear = DDNuditySystemUtils().is_equipment_set_to_layer_by_type(sim_info, undress_part, DCPartLayer.OUTERWEAR).result
@@ -439,7 +430,7 @@ class DcCommand: # TODO support reload .... (metaclass=Singleton):
         if parameters:
             return self._underss_next_custom(sim_info, parameters)
         # HAT, SHOES, SOCKS, TOP, BOTTOM, FULL, CUMMERBUND, TIGHTS
-        return self._underss_next_custom(sim_info, 1, 8, 36, 6, 7, 5, 9, 42)
+        return self._underss_next_custom(sim_info, [1, 8, 36, 6, 7, 5, 9, 42, ])
 
         undress_parts_1 = (
             [DDPartHandleType.EQUIPMENT_FEET, DDPartHandleType.EQUIPMENT_SOCKS, ],

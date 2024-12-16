@@ -18,7 +18,6 @@ class VanillaFunction:
     # currently only '1-9,.' are supported. TODO
     F_STOP_VFX = 'bg_stop_vfx'  # (id)
 
-
     # Outfit related functions - BG
     F_UNDO_OUTFIT = 'bg_undo_outfit'
 

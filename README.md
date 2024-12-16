@@ -290,6 +290,15 @@ If you don't want to extract the ZIP file into `The Sims 4` folder you might wan
 * The files in `ZIP-File/mod_documentation` are for you to read it. They are not needed to use this mod.
 * The `Mods/_o19_/*.ts4script` files can be stored in a random folder within `Mods` or directly in `Mods`. I highly recommend to store it in `_o19_` so you know who created it.
 
+## Trouble Shooting
+In case a mod does not work. Check these things:
+* Does 'The Sims 4' (localized to Die Sims 4, Les Sims 4, Los Sims 4, The Sims 4, ...) exist?
+  * Does `The Sims 4` contain the `Mods` folder?
+    * Does `Mods` contain the `_o19_` folder? 
+        * Does `_19_` contain `{mod_name}.ts4script` and/or `{mod_name}.package` files?
+  * Does `The Sims 4` contain the `mod_data` folder?
+    * Does `mod_data` contain the `{mod_name}` folder?
+  * 
 ## Usage Tracking / Privacy
 This mod does not send any data to tracking servers. The code is open source, not obfuscated, and can be reviewed.
 
