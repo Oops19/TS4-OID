@@ -1,5 +1,5 @@
-OnInteractionDo v0.0.11 for The Sims 4 v1.111.102 and S4CL v3.9
-Created on 2024-12-12
-v0.0.11
-    Fix milking
+OnInteractionDo v0.0.12 for The Sims 4 v1.112.481 and S4CL v3.10
+Created on 2025-01-21
+v0.0.12
+    Documentation
 

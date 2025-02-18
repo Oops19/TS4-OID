@@ -28,10 +28,12 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.0.11'
+        return '0.0.12'
 
 
 '''
+v0.0.12
+    Documentation
 v0.0.11
     Fix milking
 v0.0.10

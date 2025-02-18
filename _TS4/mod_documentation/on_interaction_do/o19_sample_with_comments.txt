@@ -1,0 +1,153 @@
+# Make a copy of this file and remove all line above '{'.
+# The file should start with '{' and end with '}'.
+# Append a ',' after all other closing brackets: '},'.
+# To use this file save the copy into ''The Sims 4/mod_data/on_interaction_do/cfg/'.
+
+# All optional key-value pairs may also be removed. They are usually in a separate block starting with '# Optional key-value pairs'
+# All other comments may also be removed, easiest way is a regex a search string ' *# .*$' replacing to ''
+# RegEx search is supported by Notepad++, PyCharm and other editors.
+
+# Use single or double quotes around keywords and/or strings.
+
+# Unless specified otherwise do never ever modify keywords (timing, actions, ...).
+# Do not use a keyword multiple times within an area within '{...}'.
+# Do not remove keyword from an area within '{...}' unless the are optional or stated otherwise.
+# 'author_interaction_description': {...} must contain only one 'filter' area.
+# 'author_interaction_description_1': {...}  must also contain one 'filter' area.
+
+{
+    # Adjust 'author_interaction_description' to make clear who created this configuration and what it should do
+    'author_interaction_description': {
+
+        # Do not modify the keyword 'filter'
+        # Using this keyword multiple times in the ''author_interaction_description' section is not supported.
+        'filter': {
+            # Add the interaction tunings you want to modify
+            # Wildcards are supported
+            # To modify all kiss related tunings use '*kiss*'
+            # '*kiss*' will match all 'kiss' tunings including 'bekiss', kissing', 'kiss_in_rain', ...
+            # Tunings which are not available (e.g. missing DLC) will be ignored.
+            # No new tunings which can break the game due to missing DLCs are created.
+            # In case a new DLC with more kissing interactions is released they will be processed properly (in case 'kiss' is in their name).
+            # In case a player has only the free base game only the few base game kissing interactions which are available are modified.
+            "tunings": ["TuningName_as_logged_by_S4CL", "TuningName_2_as_logged_by_S4CL", ],
+
+            # Optional key-value pairs
+            # To use other (not INTERACTION) tunings change this (this is the default, thus optional):
+            'manager': 'INTERACTION',
+            # To run a custom cheat command change this (this is the default, thus optional):
+            'command': 'o19.tuning.commands',
+
+            # Optional key-value pairs
+            # These are needed when using 'commands' below to add or remove buffs or traits
+            'traits': ["TuningName_as_logged_by_S4CL", "TuningName_2_as_logged_by_S4CL", ],
+            'buffs': ["TuningName_as_logged_by_S4CL", "TuningName_2_as_logged_by_S4CL", ],
+            # To match and remove all trait and/or buff tunings set the value to True:
+            # 'traits': True,
+            # 'buffs': True,
+        },
+
+        # Usually one will use 'actions' even though it is not required.
+        # Optional 'action' area:
+        'actions': {
+            # Define a new action and name it, or give it a number.
+            # Just make sure that each defined action within the 'actions' section has its own name
+            'start_of_animation': {
+
+                # The 'command' defined above will be called with these parameter(s).
+                # A list is required, 1-n parameters can be specified in the list.
+                # Parameters are processed from left to right.
+                # See below for more parameter strings.
+				"parameters": ["g_debug_alert(111)", ],
+
+				# Optional key-value pairs for 'parameters'
+                # Timing default: 'at_end'. Other supported values are 'at_beginning' and 'on_xevt'
+                "timing": "at_end",
+                'offset_time': 1,  # For 'timing': 'at_beginning' start n seconds later
+                'xevt_id': 123,  # For 'timing': 'on_xevt' start when this event id occurs (coded in the animation)
+
+                # Optional key-value pairs
+                # These will be executed before 'parameters'
+                'include_target_sim': True,  # Set to False to exclude the target sim.
+                'include_target_object': False,  # Set to True to include the target object. In this case include_target_sim is ignored.
+                'drop_all_basic_extras': False,  # Set to True to remove the whole 'basic_extras' section from the tuning
+                'drop_basic_extras': ["", ],  # A list with 'basic_extras' classes to drop, see below
+            },
+            'end_of_animation': {
+                "parameters": ["g_info_alert(111)", ],
+            },
+        },
+
+        # Optional 'commands' area:
+        # The 'commands' area is used less often as tests are usually fine. It may be missing quite often.
+        # Some mod creators limit some actions to genders or very specific roles or traits by other mods.
+        # These commands help to remove gender and similar restrictions and to treat all sims equally.
+        # Removing cooking restrictions for sims who can't cook may still be a bad idea.
+        # Options see below
+        'commands': ["drop_tg_CareerGigTest", ],
+    },
+}
+
+# 'parameters' supports these commands
+# `g_repeat(tunings_ref, 900, 30)` - Repeat the following commands for max. 900 seconds, every 30 seconds, while the sim is running one of the interactions in "filter.tunings".
+# `g_random(10)` - 10% change to continue with the next command (range 1-99)
+# `g_rotate_abs(340)` - Rotate the sim slowly to -20° (range 1-359)
+# `g_rotate_rnd(180, 10)` - Rotate the sim slowly to a position between -170° - 190° (180° ± 10°) - range(1-359, 1-179)
+# `g_rotate_end` - Stop the rotation before it completed.
+# `g_opacity(0.8, 10)` - Fade the sim to 80%% opacity within 10 seconds. range(0.0-1.0, 0-30)
+# `g_debug_info(Message)` - Show a blue popup for debug purposes.
+# `g_debug_alert(Message)` - Show an orange popup for debug purposes.
+# `bg_impregnate` - Impregnate the target sim (target sim must be set !)
+# `s_undo_outfit` - Undo outfit changes created by one of the following parameters at the end of the interaction.
+# `s_undo_outfit(200)` - In case the interaction is still running after 200s undo the outfit change. (range 1-999)
+# `s_undo_outfit(200, 30)` - As above, but wait 30 seconds before undo.
+# `s_undress_cas_parts(5, 6, 7)` - Remove CAS / body types from the sim. 5=FULL_BODY, 6=TOP, 7=BOTTOM (range 1-200, not every part is supported)
+# `s_equip_cas_parts` - Equip CAS / body types
+# `s_undress_all`, `s_undress_full`, `s_undress_top`, `s_undress_bottom`, `s_undress_shoes` - Remove CAS parts
+# `s_equip_all`, `s_equip_full`, `s_equip_top`, `s_equip_bottom` - Add CAS parts
+# `s_undress_next` - Remove one CAS part. The types and order is pre-defined. Might be called in a loop.
+# `s_undress_next(7, 6)` - Remove one CAS part in the specified order. Might be called in a loop.
+
+# 'drop_tg_Xxx' parameter. (Replace 'Xxx' with one of these to create and use 'drop_tg_SkillRangeTest' to drop the skill range test.)
+# 'drop_tg_SkillRangeTest',
+# 'drop_tg_TraitTest',
+# 'drop_tg_BuffTest',
+# 'drop_tg_SimInfoTest',
+# 'drop_tg_CareerGigTest',
+# 'drop_tg_CommodityAdvertisedTest',
+
+# 'drop_basic_extras' supports these classes which can be dropped individually.
+# To remove all 'basic_extras' use 'drop_all_basic_extras': True.
+# "TunableBroadcasterRequestWrapper.BroadcasterRequest",
+# "TunableBuffElementWrapper.factory",
+# "TunableChangeOutfitElementWrapper.ChangeOutfitElement",
+# "TunableDoCommandWrapper.DoCommand",
+# "TunableLootElementWrapper.LootElement",
+# "TunableNotificationElementWrapper.NotificationElement",
+# "TunablePlayVisualEffectElementWrapper.PlayVisualEffectElement",
+# "TunablePregnancyElementWrapper.PregnancyElement",
+# "TunableStateChangeWrapper._factory",
+# "TunableTunableAudioStingWrapper.TunableAudioSting",
+
+# 'commands' supports these special commands.
+# The 'tunings' defined within {'filter': {'buffs': ["...", ], 'traits': ["...", ],},}, are used.
+# To remove all buffs or traits replace the list ["...", ] with True
+# 'add_whitelist_traits',
+# 'remove_whitelist_traits',
+# 'add_blacklist_traits',
+# 'remove_blacklist_traits',
+# 'add_whitelist_buffs',
+# 'remove_whitelist_buffs',
+# 'add_blacklist_buffs',
+# 'remove_blacklist_buffs',
+# 'add_whitelist_traits_test',
+# 'remove_whitelist_traits_test',
+# 'add_blacklist_traits_test',
+# 'remove_blacklist_traits_test',
+# 'add_whitelist_buffs_test',
+# 'remove_whitelist_buffs_test',
+# 'add_blacklist_buffs_test',
+# 'remove_blacklist_buffs_test',
+# 'remove_privacy',  # Removes the 'privacy' property from tunings.
+# 'no_gender_check',  # Remove the who and gender check from test_globals.
+# 'drop_tg_Xxx',  # drop 'Xxx' in test_globals, see below for supported values.

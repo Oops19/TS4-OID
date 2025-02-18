@@ -1,0 +1,524 @@
+<h1>Alpha Preview Release</h1>
+You are welcome to test it. It is quite stable but some timings still fail.<br/>
+Travelling may cause a bunch of exceptions, please ignore them.<br/>
+<br/>
+<h1> On Interaction Do</h1>
+<br/>
+This is a script mod to run various commands whenever a sim is executing an action.<br/>
+<br/>
+It supports many base game interactions, and support for some mods.<br/>
+It uses the appearance modifiers provided by Devious Desires / Core and it is not compatible with 'wicked' script mods.<br/>
+<br/>
+This mod currently requires Devious Desires / Core to be able to use appearance modifiers.<br/>
+<br/>
+<h2>Code and/or included Content</h2>
+This mod only references object and/or tuning names of interactions etc.<br/>
+This mod does not<br/>
+<ul>
+	<li>add new interactions</li>
+	<li>add new items</li>
+	<li>include or override UGC created by other mod creators</li>
+</ul>
+<br/>
+<h2>Base Game</h2>
+For the base game there are a few interactions.<br/>
+Some base game interactions may result in removed outfit parts for sims.<br/>
+<br/>
+<h3>Shower</h3>
+<ul>
+	<li>Sims will turn around in shower instead of watching the wall.</li>
+</ul>
+<br/>
+<h3>Vanilla 'Pillow Fight ...'</h3>
+<ul>
+	<li>Sims will undress their shoes and might lose outfit parts.</li>
+</ul>
+<br/>
+<h3>Using Toilet</h3>
+<ul>
+	<li>Configuration removed. Handled and hardcoded in DD.</li>
+</ul>
+<br/>
+<h3>Feeding Baby</h3>
+<ul>
+	<li>Configuration removed. Handled and hardcoded in DD.</li>
+</ul>
+<br/>
+<h3>Play Sabbac</h3>
+<ul>
+	<li>Losers undress am outfit item.</li>
+</ul>
+<br/>
+<br/>
+<h2>3rd party mods and build items</h2>
+<br/>
+<h3>HIU</h3>
+HIU by Sacrificial is supported, while it is not required.<br/>
+If HIU is installed make sure to remove these script mods:<br/>
+<ul>
+	<li>`wicked*.ts4script`</li>
+</ul>
+<br/>
+The actors support the basic un-/equip commands as used by HIU.<br/>
+<br/>
+<h3>Build Items</h3>
+Some devices by Kritical are supported, none of them is required.<br/>
+Just make sure to remove these script mods:<br/>
+<ul>
+	<li>`[Kritical]StyxUrinal1.ts4script</i>  # and/or similar versions</li>
+	<li>`[Kritical]PracticalSexArcade1.ts4script</i>  # and/or similar versions</li>
+</ul>
+<br/>
+The following devices are supported:<br/>
+<ul>
+	<li>`[Kritical]BlowjobArcade1d.package`</li>
+	<li>`[Kritical]CeladonUrinal1a.package`</li>
+	<li>`[Kritical]ExerciseBike1b.package`</li>
+	<li>`[Kritical]FeedingMachine1d.package`</li>
+	<li>`[Kritical]LetheUrinal1a.package`</li>
+	<li>`[Kritical]MajesticHole1f.package`</li>
+	<li>`[Kritical]MilkingMachine1d.package`</li>
+	<li>`[Kritical]PracticalSexArcade1j.package`</li>
+	<li>`[Kritical]SensoryDeprivationChamber1a.package`</li>
+	<li>`[Kritical]StyxUrinal1h.package`</li>
+	<li>`[Kritical]TanningRack1a.package`</li>
+	<li>`[Kritical]Thighmaster1a.package`</li>
+	<li>`[Kritical]WorkoutMachineFreya1a.package`</li>
+</ul>
+<br/>
+This mod has been tested with the versions mentioned above.<br/>
+<br/>
+The mod injects into the interactions to make them compatible with DD.<br/>
+<br/>
+<br/>
+<h4>Issues</h4>
+Commands may be executed shortly after an interaction starts and shortly before an interaction stops.<br/>
+It's not perfect but hopefully good enough for TS4.<br/>
+Some of the issues mentioned below may have been fixed so far.<br/>
+<br/>
+<h5>Sex and BJ Arcade</h5>
+<ul>
+	<li>Customers will undress the lower body and dress up afterwards properly, the initial state (nude, underwear, outfit) will be restored.</li>
+	<li>The gender check has been removed, customers without a penis will use a strap-on.</li>
+	<li>Customers with a penis will get a boner during animation. Flaccid afterwards, also the cum level will be reduced.</li>
+</ul>
+<br/>
+<h5>Styx Urinal</h5>
+<ul>
+	<li>Customers will undress the lower body and dress up afterwards properly, the initial state (nude, underwear, outfit) will be restored.</li>
+	<li>Not modified: The game may rotate the sim or the effect 180° and it may look odd.</li>
+</ul>
+<br/>
+<h5>Milking Machine</h5>
+<ul>
+	<li>Sims with a Basic, Upgraded or Reward trait can use it.</li>
+	<li>Sims will undress the upper body and dress up afterwards properly, the initial state (nude, underwear, outfit) will be restored.</li>
+	<li>The milk level will be reduced after milking. This is not related to the amount of milk available in the machine.</li>
+	<li>Sims will no longer fade-out and fade-in as it didn't work reliable for me.</li>
+	<li>Pregnant sims can milk themselves.</li>
+</ul>
+<br/>
+<h2>Customized Custom User Customization</h2>
+You read the title successfully, so you may start to adjust random vanilla and/or mod interactions as you like.<br/>
+<br/>
+<h4>Gather the interaction IDs</h4>
+There are two options to get interaction IDs<br/>
+<br/>
+<h5>Log interaction IDs</h5>
+<ul>
+	<li>Press Shift+Ctrl+C to open the debug console</li>
+	<li>Enter <i>o19.oid.log_sim</i> to log the queued interactions of the active sim.</li>
+	<li>Optionally, this is usually Not Needed, log the pre-run interactions with  <i>o19.oid.log_sim_pre_run`</li>
+	<li>Run the command again to disable logging.</li>
+</ul>
+<br/>
+<h5>Gather the interaction IDs with S4CL</h5>
+<ul>
+	<li>Pause the game and click on object X and select the interaction. It will be queued in the interaction Q.</li>
+	<li>Sim+Shift-click > S4CL > Show running interactions to ge the IDs/Names or running and/or queued interactions.</li>
+	<li>Un-pause the game and wait until the sim is using the object.</li>
+	<li>Shift-click > S4CL > Show running interactions to ge the IDs/Names or running and/or queued interactions.</li>
+	<li>The 'interact' and the 'interacting' interactions may be two different ones.</li>
+</ul>
+<br/>
+<h5>Create Configuration File</h5>
+<ul>
+	<li>Use your name and replace <i>author</i> (unless everyone calls you 'author' already).</li>
+	<li>Replace <i>interaction_description</i> with the intention of the modification.</li>
+	<li>Replace the <i>tunings</i> value with the interaction name(s), e.g. <i>celebrity_Self_PoseforPicture`.</li>
+	<li>Optionally use S4S to search for similar interactions (with <i>interaction/celebrity_Self_`). There you'll find 3.</li>
+	<li>You could add these 3 interactions or <i>celebrity_Self_</i> - in case a new self interaction is added your customization will modify it without any update.</li>
+	<li>Then we need an idea what to do. For now add <i>g_debug_alert(celeb)</i> and <i>g_info_alert(celeb)`.</li>
+	<li>Save the file to <i>mod_data/on_interaction_do/cfg/</i> and hope you didn't break it.</li>
+	<li>Optionally validate the contents with <a href='https://codebeautify.org/python-formatter-beautifier</li>'>https://codebeautify.org/python-formatter-beautifier</li></a>
+	<li>Reload the data with <i>o19.oid.patch</i> or <i>o19.oid.patch_verbose</i> which logs more data while patching to TS4-Library_*_Messages.txt.</li>
+	<li>In case the file is broken validate it with <a href='https://codebeautify.org/python-formatter-beautifier</li>'>https://codebeautify.org/python-formatter-beautifier</li></a>
+<pre>
+</ul>
+{
+    "author_interaction_description*": {  # TODO adjust
+        "filter": {
+            "tunings": ["TuningName_as_logged_by_S4CL", "TuningName_2_as_logged_by_S4CL", ],
+        },
+        "actions": {
+            "start_of_animation*": {  # TODO adjust
+				"parameters": ["g_debug_alert(111)", ],
+                "timing": "at_beginning",
+            },
+            "end_of_animation*": {  # TODO adjust
+                "parameters": ["g_info_alert(111)", ],
+			},
+        },
+    },
+}
+</pre>
+<ul>
+	<li>The keywords 'filter, tunings, actions, parameters, timing' must not be modified.</li>
+	<li>Adjust the keywords ending with '*' to match your needs.</li>
+	<li>Unlike <i>json</i> comments are supported and <i>,}</i> and/or <i>,]</i> work fine. This allows to add new lines / statements without appending,</i> to the line above.</li>
+</ul>
+<br/>
+<ul>
+	<li>Run again the interaction - with a random sim - and enjoy the modified configuration.</li>
+</ul>
+<br/>
+<h5>debug.txt</h5>
+In case too much is going and/or patched save the file as 'debug.txt' or 'author_debug.txt'.<br/>
+In case one or more debug files exist it/they will be read and applied - the standard configuration is ignored.<br/>
+To 'undo' all applied modifications restart the game and then test the debug settings.<br/>
+Reload them with <i>o19.oid.patch</i>.<br/>
+<br/>
+After testing copy the contents to a regular configuration file and delete the/all debug file(s).<br/>
+With <i>o19.oid.patch</i> the files will be read and applied again, without restarting the game.<br/>
+<br/>
+<h3>Supported 'actions'</h3>
+To modify how interactions start or end some commands are available.<br/>
+Some additional settings are also available and shown below.<br/>
+<pre>
+{
+    "author_interaction_description*": {
+        'actions': {
+            "start_of_animation*": {
+                'drop_all_basic_extras': True,  # drop everything with &lt;I&gt;&lt;L n="basic_extras"&gt;[...]&lt;/L&gt;
+                'drop_basic_extras': [  # or drop individual elements within &lt;I&gt;&lt;L n="basic_extras"&gt;, supported are
+                    'TunableBroadcasterRequestWrapper.BroadcasterRequest',
+                    'TunableBuffElementWrapper.factory',
+                    'TunableChangeOutfitElementWrapper.ChangeOutfitElement',
+                    'TunableDoCommandWrapper.DoCommand',
+                    'TunableLootElementWrapper.LootElement',
+                    'TunableNotificationElementWrapper.NotificationElement',
+                    'TunablePlayVisualEffectElementWrapper.PlayVisualEffectElement',
+                    'TunablePregnancyElementWrapper.PregnancyElement',
+                    'TunableStateChangeWrapper._factory',
+                    'TunableTunableAudioStingWrapper.TunableAudioSting',
+                ],
+                'timing': 'at_beginning',  # or 'at_end' or 'on_xevt'
+                'offset_time': 5,  # optionally, only valid for 'at_beginning'
+                'xevt_id': 123,  # only valid for 'on_xevt'
+                'include_target_sim': True,  # can be set to False
+                'include_target_object': False,  # setting this to True sets  include_target_sim=False
+                'parameters': ['...', ],
+            },
+        },
+    },
+}
+</pre>
+For <i>parameters</i> these commands are available:<br/>
+<ul>
+	<li>`g_repeat(tunings_ref, 900, 30)</i> - Repeat the following commands for max. 900 seconds, every 30 seconds, while the sim is running one of the interactions in "filter.tunings".</li>
+	<li>`g_random(10)</i> - 10% change to continue with the next command (range 1-99)</li>
+	<li>`g_rotate_abs(340)</i> - Rotate the sim slowly to -20° (range 1-359)</li>
+	<li>`g_rotate_rnd(180, 10)</i> - Rotate the sim slowly to a position between -170° - 190° (180° ± 10°) - range(1-359, 1-179)</li>
+	<li>`g_rotate_end</i> - Stop the rotation before it completed.</li>
+	<li>`g_opacity(0.8, 10)</i> - Fade the sim to 80%% opacity within 10 seconds. range(0.0-1.0, 0-30)</li>
+	<li>`g_debug_info(Message)</i> - Show a blue popup for debug purposes.</li>
+	<li>`g_debug_alert(Message)</i> - Show an orange popup for debug purposes.</li>
+	<li>`bg_impregnate</i> - Impregnate the target sim (target sim must be set !)</li>
+	<li>`s_undo_outfit</i> - Undo outfit changes created by one of the following parameters at the end of the interaction.</li>
+	<li>`s_undo_outfit(200)</i> - In case the interaction is still running after 200s undo the outfit change. (range 1-999)</li>
+	<li>`s_undo_outfit(200, 30)</i> - As above, but wait 30 seconds before undo.</li>
+	<li>`s_undress_cas_parts(5, 6, 7)</i> - Remove CAS / body types from the sim. 5=FULL_BODY, 6=TOP, 7=BOTTOM (range 1-200, not every part is supported)</li>
+	<li>`s_equip_cas_parts</i> - Equip CAS / body types</li>
+	<li>`s_undress_all`, <i>s_undress_full`, <i>s_undress_top`, <i>s_undress_bottom`, <i>s_undress_shoes</i> - Remove CAS parts</li>
+	<li>`s_equip_all`, <i>s_equip_full`, <i>s_equip_top`, <i>s_equip_bottom</i> - Add CAS parts</li>
+	<li>`s_undress_next</i> - Remove one CAS part. The types and order is pre-defined. Might be called in a loop.</li>
+	<li>`s_undress_next(7, 6)</i> - Remove one CAS part in the specified order. Might be called in a loop.</li>
+</ul>
+<br/>
+<h3>Supported 'filters'</h3>
+Usually it is fine just to specify <i>tunings</i>.<br/>
+<br/>
+The default tuning manager is 'INTERACTION', this can be modified if needed.<br/>
+The configuration files of this mod always call their own cheat command 'o19.oid.do_command' (default) which can also be modified.<br/>
+One call can call cheat commands of random mods while the supplied command parameters will usually not match.<br/>
+A list of buffs and traits can also be generated to be used by 'commands'.<br/>
+The 'tunings' can be specified as strings starting and or ending with '*' for wildcards.<br/>
+Use wildcards with care, <i>*a*</i> matches almost all tunings and may cause out of memory issues and take less than eternity to complete.<br/>
+<br/>
+<pre>
+{
+    "author_interaction_description*": {
+      "filter": {
+        'traits': ['...', ],
+        'buffs': ['...', ],
+        'manager': 'INTERACTION',  # or 'SNIPPET' to modify a snippet tuning
+        'tunings': ['...', ],
+        'command': 'o19.oid.do_command',
+      }, ...
+</pre>
+<br/>
+<h3>Supported 'commands'</h3>
+Within 'commands' a few special commands are supported. It contains a list of 1-n commands.<br/>
+<pre>
+{
+    "author_interaction_description*": {
+        "filter": {
+            'traits': ['...' ],
+            'buffs': ['...' ],
+            ...
+        },
+        "commands": [
+            ...
+        ]
+    }
+}
+</pre>
+<ul>
+	<li>`remove_privacy</i> Remove privacy checks (`&lt;I&gt;[&lt;V n="privacy" ...</V&gt;]`)</li>
+	<li>`no_gender_check</i> Remove gender checks (`&lt;I&gt;&lt;L n="test_globals"&gt;[&lt;E n="gender"&gt;...&lt;/E&gt;]`)</li>
+	<li>`drop_tg_TEST</i> with TEST=BuffTest, CareerGigTest, CommodityAdvertisedTest, SimInfoTest, SkillRangeTest, TraitTest</li>
+	<li>`drop_tg_BuffTest</i> removes all Buff tests from 'test_globals'. This might cause issues for further tests.</li>
+	<li>`ACTION_LIST_TYPE</i> Eight commands with ACTION=add or remove, LIST=whitelist or blacklist and TYPE=buffs or traits from test_globals</li>
+	<li>`add_whitelist_buffs</i> <i>add_blacklist_buffs</i> <i>add_whitelist_traits</i> <i>add_blacklist_traits`</li>
+	<li>`remove_whitelist_buffs</i> <i>remove_whitelist_buffs</i> <i>remove_blacklist_traits</i> <i>remove_blacklist_traits`</li>
+	<li>All six other variations work like these two samples:</li>
+	<li>`add_whitelist_traits</i> Add the 'filter.traits' to the allow list</li>
+	<li>`remove_blacklist_buffs</i> Remove the 'filter.buffs' from the deny list. Set 'filter.buffs' to 'True' to remove everything.</li>
+	<li>To add buffs and two remove other buffs two <i>author_interaction_description</i> sections are needed as only one <i>buffs</i> and <i>traits</i> section exist.</li>
+	<li>`ACTION_LIST_TYPE_test</i> Eight commands with ACTION=add or remove, LIST=whitelist or blacklist and TYPE=buffs or traits from <i>n="testSet..."</i> tunings ().</li>
+	<li>`add_whitelist_buffs_test`, ...  see above for details.</li>
+</ul>
+<br/>
+<br/>
+<h1>Addendum</h1>
+<br/>
+<h2>Game compatibility</h2>
+This mod has been tested with <i>The Sims 4</i> 1.112.481, S4CL 3.10, TS4Lib 0.3.36.<br/>
+It is expected to be compatible with many upcoming releases of TS4, S4CL and TS4Lib.<br/>
+<br/>
+<h2>Dependencies</h2>
+Download the ZIP file, not the sources.<br/>
+<ul>
+	<li><a href='../../releases/latest'>This Mod</a></li>
+	<li><a href='https://github.com/Oops19/TS4-Library/releases/latest'>TS4-Library</a></li>
+	<li><a href='https://github.com/ColonolNutty/Sims4CommunityLibrary/releases/latest'>S4CL</a></li>
+	<li><a href='https://www.ea.com/games/the-sims/the-sims-4'>The Sims 4</a></li>
+</ul>
+<br/>
+If not installed download and install TS4 and these mods.<br/>
+All are available for free.<br/>
+<br/>
+<h2>Removal of the mod</h2>
+Ths mod installation with unzip writes to a few directories.<br/>
+To remove this mod and all related files locate the files and folders and remove them:<br/>
+<ul>
+	<li>`The Sims 4/Mods/_o19_/$mod_name.*`</li>
+	<li>`The Sims 4/mod_data/_o19_/$mod_name/`</li>
+	<li>`The Sims 4/mod_documentation/_o19_/$mod_name/`</li>
+	<li>`The Sims 4/mod_sources/_o19_/$mod_name/`</li>
+</ul>
+<br/>
+To remove all of my mods locate these folders and remove them:<br/>
+<ul>
+	<li>`The Sims 4/Mods/_o19_/`</li>
+	<li>`The Sims 4/mod_data/_o19_/`</li>
+	<li>`The Sims 4/mod_documentation/_o19_/`</li>
+	<li>`The Sims 4/mod_sources/_o19_/`</li>
+</ul>
+<br/>
+<h2>Installation</h2>
+<ul>
+	<li>Locate the localized <i>The Sims 4</i> folder which contains the <i>Mods</i> folder.</li>
+	<li>Extract the ZIP file into this <i>The Sims 4</i> folder.</li>
+	<li>It will create the directories/files <i>Mods/_o19_/$mod_name.ts4script`, <i>Mods/_o19_/$mod_name.package`, <i>mod_data/$mod_name/*</i> and/or <i>mod_documentation/$mod_name/*</i> and/or <i>mod_sources/$mod_name/*`</li>
+	<li>CAS and build-buy UGC without scripts will create <i>Mods/o19/$mod_name.package`.</li>
+	<li>`mod_logs/$mod_name.txt</i> will be created as soon as data is logged.</li>
+	<li>`mod_documentation/$mod_name/</i> and/or <i>mod_sources/$mod_name/</i> are not required and can be deleted.</li>
+</ul>
+<br/>
+<h3>Manual Installation</h3>
+If you don't want to extract the ZIP file into <i>The Sims 4</i> folder you might want to read this.<br/>
+You can extract the ZIP file to a temporary directory and copy the folders manually.<br/>
+<ul>
+	<li>The files in <i>ZIP-File/mod_data</i> are usually required and should be extracted to <i>The Sims 4/mod_data`.</li>
+	<li>The files in <i>ZIP-File/mod_documentation</i> are for you to read it. They are not needed to use this mod.</li>
+	<li>The files in <i>ZIP-File/mod_sources</i> are not needed to use this mod.</li>
+	<li>The <i>Mods/_o19_/*.ts4script</i> files can be stored in a random folder within <i>Mods</i> or directly in <i>Mods</i>. I highly recommend to store it in <i>_o19_</i> so you know who created it.</li>
+</ul>
+<br/>
+<h2>Troubleshooting</h2>
+When installed properly this is not necessary at all.<br/>
+For manual installations check these things and make sure each question can be answered with 'yes'.<br/>
+<ul>
+	<li>Does 'The Sims 4' (localized to Die Sims 4, Les Sims 4, Los Sims 4, The Sims 4, ...) exist?</li>
+	<li>Does <i>The Sims 4</i> contain the folder <i>Mods`?</li>
+	<li>Does <i>Mods</i> contain the folder <i>_o19_`?</li>
+	<li>Does <i>_19_</i> contain <i>ts4lib.ts4script</i> and <i>ts4lib.package</i> files?</li>
+	<li>Does <i>_19_</i> contain <i>{mod_name}.ts4script</i> and/or <i>{mod_name}.package</i> files?</li>
+	<li>Does <i>The Sims 4</i> contain the folder <i>mod_data`?</li>
+	<li>Does <i>mod_data</i> contain the folder <i>{mod_name}`?</li>
+	<li>Does <i>{mod_name}</i> contain files or folders?</li>
+	<li>Does <i>The Sims 4</i> contain the <i>mod_logs</i> ?</li>
+	<li>Does <i>mod_logs</i> contain the file <i>Sims4CommunityLib_*_Messages.txt`?</li>
+	<li>Does <i>mod_logs</i> contain the file <i>TS4-Library_*_Messages.txt`?</li>
+	<li>Is this the most recent version or can it be updated?</li>
+	<li>Does <i>mod_logs</i> contain the file <i>{mod_name}_*_Messages.txt`?</li>
+	<li>Is this the most recent version or can it be updated?</li>
+	<li>Doesn't <i>The Sims 4</i> contain the file(s) <i>last_exception.txt</i>  and/or <i>last_exception*.txt</i> ?</li>
+	<li>Share the <i>The Sims 4/mod_logs/Sims4CommunityLib_*_Messages.txt</i> and <i>The Sims 4/mod_logs/{mod_name}_*_Messages.txt</i>  file.</li>
+</ul>
+<br/>
+<h2>Usage Tracking / Privacy</h2>
+This mod does not send any data to tracking servers. The code is open source, not obfuscated, and can be reviewed.<br/>
+<br/>
+Some log entries in the log file ('mod_logs' folder) may contain the local username, especially if files are not found (WARN, ERROR).<br/>
+<br/>
+<h2>External Links</h2>
+<a href='https://github.com/Oops19/'>Sources</a><br/>
+<a href='https://discord.gg/d8X9aQ3jbm'>Support</a><br/>
+<a href='https://www.patreon.com/o19'>Donations</a><br/>
+<br/>
+<h2>Copyright and License</h2>
+<ul>
+	<li>© 2024 <a href='https://github.com/Oops19'>Oops19</a></li>
+	<li>License for '.package' files: <a href='https://tos.ea.com/legalapp/WEBTERMS/US/en/PC/'>Electronic Arts TOS for UGC</a></li>
+	<li>License for other media unless specified differently: <a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0</a> unless the Electronic Arts TOS for UGC overrides it.</li>
+</ul>
+This allows you to use this mod and re-use the code even if you don't own The Sims 4.<br/>
+Have fun extending this mod and/or integrating it with your mods.<br/>
+<br/>
+Oops19 / o19 is not endorsed by or affiliated with Electronic Arts or its licensors.<br/>
+Game content and materials copyright Electronic Arts Inc. and its licensors.<br/>
+Trademarks are the property of their respective owners.<br/>
+<br/>
+<h3>TOS</h3>
+<ul>
+	<li>Please don't put it behind a paywall.</li>
+	<li>Please don't create mods which break with every TS4 update.</li>
+	<li>For simple tuning modifications use <a href='https://github.com/Oops19/TS4-PatchXML'>Patch-XML</a></li>
+	<li>or <a href='https://github.com/Oops19/TS4-LiveXML'>LiveXML</a>.</li>
+	<li>To check the XML structure of custom tunings use <a href='https://github.com/Oops19/TS4-VanillaLogs'>VanillaLogs</a>.</li>
+</ul>
+<br/>
+<br/>
+<br/>
+<h1>Addendum</h1>
+<br/>
+<h2>Game compatibility</h2>
+This mod has been tested with <i>The Sims 4</i> 1.112.519, S4CL 3.10, TS4Lib 0.3.36.<br/>
+It is expected to be compatible with many upcoming releases of TS4, S4CL and TS4Lib.<br/>
+<br/>
+<h2>Dependencies</h2>
+Download the ZIP file, not the sources.<br/>
+<ul>
+	<li><a href='../../releases/latest'>This Mod</a></li>
+	<li><a href='https://github.com/Oops19/TS4-Library/releases/latest'>TS4-Library</a></li>
+	<li><a href='https://github.com/ColonolNutty/Sims4CommunityLibrary/releases/latest'>S4CL</a></li>
+	<li><a href='https://www.ea.com/games/the-sims/the-sims-4'>The Sims 4</a></li>
+</ul>
+<br/>
+If not installed download and install TS4 and these mods.<br/>
+All are available for free.<br/>
+<br/>
+<h2>Removal of the mod</h2>
+The mod installation with unzip writes to a few directories.<br/>
+To remove this mod and all related files locate the files and folders and remove them:<br/>
+<ul>
+	<li>`The Sims 4/Mods/_o19_/$mod_name.*`</li>
+	<li>`The Sims 4/mod_data/_o19_/$mod_name/`</li>
+	<li>`The Sims 4/mod_documentation/_o19_/$mod_name/`</li>
+	<li>`The Sims 4/mod_sources/_o19_/$mod_name/`</li>
+</ul>
+<br/>
+To remove all of my mods locate these folders and remove them:<br/>
+<ul>
+	<li>`The Sims 4/Mods/_o19_/`</li>
+	<li>`The Sims 4/mod_data/_o19_/`</li>
+	<li>`The Sims 4/mod_documentation/_o19_/`</li>
+	<li>`The Sims 4/mod_sources/_o19_/`</li>
+</ul>
+<br/>
+<h2>Installation</h2>
+<ul>
+	<li>Locate the localized <i>The Sims 4</i> folder which contains the <i>Mods</i> folder.</li>
+	<li>Extract the ZIP file into this <i>The Sims 4</i> folder.</li>
+	<li>It will create the directories/files <i>Mods/_o19_/$mod_name.ts4script`, <i>Mods/_o19_/$mod_name.package`, <i>mod_data/$mod_name/*</i> and/or <i>mod_documentation/$mod_name/*</i> and/or <i>mod_sources/$mod_name/*`</li>
+	<li>CAS and build-buy UGC without scripts will create <i>Mods/o19/$mod_name.package`.</li>
+	<li>`mod_logs/$mod_name.txt</i> will be created as soon as data is logged.</li>
+	<li>`mod_documentation/$mod_name/</i> and/or <i>mod_sources/$mod_name/</i> are not required and can be deleted.</li>
+</ul>
+<br/>
+<h3>Manual Installation</h3>
+If you don't want to extract the ZIP file into <i>The Sims 4</i> folder you might want to read this.<br/>
+You can extract the ZIP file to a temporary directory and copy the folders manually.<br/>
+<ul>
+	<li>The files in <i>ZIP-File/mod_data</i> are usually required and should be extracted to <i>The Sims 4/mod_data`.</li>
+	<li>The files in <i>ZIP-File/mod_documentation</i> are for you to read it. They are not needed to use this mod.</li>
+	<li>The files in <i>ZIP-File/mod_sources</i> are not needed to use this mod.</li>
+	<li>The <i>Mods/_o19_/*.ts4script</i> files can be stored in a random folder within <i>Mods</i> or directly in <i>Mods</i>. I highly recommend to store it in <i>_o19_</i> so you know who created it.</li>
+</ul>
+<br/>
+<h2>Troubleshooting</h2>
+When installed properly this is not necessary at all.<br/>
+For manual installations check these things and make sure each question can be answered with 'yes'.<br/>
+<ul>
+	<li>Does 'The Sims 4' (localized to Die Sims 4, Les Sims 4, Los Sims 4, The Sims 4, ...) exist?</li>
+	<li>Does <i>The Sims 4</i> contain the folder <i>Mods`?</li>
+	<li>Does <i>Mods</i> contain the folder <i>_o19_`?</li>
+	<li>Does <i>_19_</i> contain <i>ts4lib.ts4script</i> and <i>ts4lib.package</i> files?</li>
+	<li>Does <i>_19_</i> contain <i>{mod_name}.ts4script</i> and/or <i>{mod_name}.package</i> files?</li>
+	<li>Does <i>The Sims 4</i> contain the folder <i>mod_data`?</li>
+	<li>Does <i>mod_data</i> contain the folder <i>{mod_name}`?</li>
+	<li>Does <i>{mod_name}</i> contain files or folders?</li>
+	<li>Does <i>The Sims 4</i> contain the <i>mod_logs</i> ?</li>
+	<li>Does <i>mod_logs</i> contain the file <i>Sims4CommunityLib_*_Messages.txt`?</li>
+	<li>Does <i>mod_logs</i> contain the file <i>TS4-Library_*_Messages.txt`?</li>
+	<li>Is this the most recent version or can it be updated?</li>
+	<li>Does <i>mod_logs</i> contain the file <i>{mod_name}_*_Messages.txt`?</li>
+	<li>Is this the most recent version or can it be updated?</li>
+	<li>Doesn't <i>The Sims 4</i> contain the file(s) <i>last_exception.txt</i>  and/or <i>last_exception*.txt</i> ?</li>
+	<li>Share the <i>The Sims 4/mod_logs/Sims4CommunityLib_*_Messages.txt</i> and <i>The Sims 4/mod_logs/{mod_name}_*_Messages.txt</i>  file.</li>
+</ul>
+<br/>
+<h2>Usage Tracking / Privacy</h2>
+This mod does not send any data to tracking servers. The code is open source, not obfuscated, and can be reviewed.<br/>
+<br/>
+Some log entries in the log file ('mod_logs' folder) may contain the local username, especially if files are not found (WARN, ERROR).<br/>
+<br/>
+<h2>External Links</h2>
+<a href='https://github.com/Oops19/'>Sources</a><br/>
+<a href='https://discord.gg/d8X9aQ3jbm'>Support</a><br/>
+<a href='https://www.patreon.com/o19'>Donations</a><br/>
+<br/>
+<h2>Copyright and License</h2>
+<ul>
+	<li>© 2020-2025 <a href='https://github.com/Oops19'>Oops19</a></li>
+	<li>License for '.package' files: <a href='https://tos.ea.com/legalapp/WEBTERMS/US/en/PC/'>Electronic Arts TOS for UGC</a></li>
+	<li>License for other media unless specified differently: <a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0</a> unless the Electronic Arts TOS for UGC overrides it.</li>
+</ul>
+This allows you to use this mod and re-use the code even if you don't own The Sims 4.<br/>
+Have fun extending this mod and/or integrating it with your mods.<br/>
+<br/>
+Oops19 / o19 is not endorsed by or affiliated with Electronic Arts or its licensors.<br/>
+Game content and materials copyright Electronic Arts Inc. and its licensors.<br/>
+Trademarks are the property of their respective owners.<br/>
+<br/>
+<h3>TOS</h3>
+<ul>
+	<li>Please don't put it behind a paywall.</li>
+	<li>Please don't create mods which break with every TS4 update.</li>
+	<li>For simple tuning modifications use <a href='https://github.com/Oops19/TS4-PatchXML'>Patch-XML</a></li>
+	<li>or <a href='https://github.com/Oops19/TS4-LiveXML'>LiveXML</a>.</li>
+	<li>To check the XML structure of custom tunings use <a href='https://github.com/Oops19/TS4-VanillaLogs'>VanillaLogs</a>.</li>
+</ul>
+<br/>

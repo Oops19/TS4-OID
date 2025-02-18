@@ -1,8 +1,8 @@
 {
     'o19_k_styx_urinal': {
         'filter': {
-                # StyxUrinal1: "Kritical:Urinal2UseConstraint1" = 17192679856254027866
-                # 16440018589410761277, no longer used in 1h (bug in XML) but in earlier versions
+            # StyxUrinal1: "Kritical:Urinal2UseConstraint1" = 17192679856254027866
+            # 16440018589410761277, no longer used in 1h (bug in XML) but in earlier versions
             'tunings': ["Kritical:Urinal2UseConstraint1", "16440018589410761277", ],
         },
         'actions': {
