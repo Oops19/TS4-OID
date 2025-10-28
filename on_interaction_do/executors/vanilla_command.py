@@ -39,7 +39,7 @@ class VanillaCommand(metaclass=Singleton):
         for parameter in parameters:
             if isinstance(parameter, int):
                 body_types.add(parameter)
-            elif isinstance(parameter, str):
+            elif isinstance(parameter, str) and parameter:
                 body_types.add(BodyType[parameter].value)
         return body_types
 

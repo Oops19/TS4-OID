@@ -1,5 +1,5 @@
-OnInteractionDo v0.0.12 for The Sims 4 v1.112.481 and S4CL v3.10
-Created on 2025-01-21
-v0.0.12
-    Documentation
+OnInteractionDo v0.0.13 for The Sims 4 v1.118.257 and S4CL v3.15
+Created on 2025-10-28
+v0.0.13
+    Fix exception
 
