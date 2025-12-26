@@ -15,7 +15,7 @@ from on_interaction_do.enums.oid_constants import OidConstants
 from on_interaction_do.modinfo import ModInfo
 from sims.sim_info import SimInfo
 from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
-from ts4lib.common_enums.body_type import BodyType
+from ts4lib.custom_enums.custom_body_type import CustomBodyType
 from ts4lib.utils.singleton import Singleton
 try:
     from deviantcore.cas_part_system.enums.body_location import DCBodyLocation
@@ -245,29 +245,29 @@ class DcCommand:  # TODO support reload .... (metaclass=Singleton):
         for body_part_str in parameters:
             if body_part_str.isdigit():
                 body_part_int = int(body_part_str)
-                body_part: BodyType = BodyType(body_part_int)
+                body_part: CustomBodyType = CustomBodyType(body_part_int)
             else:
-                body_part: BodyType = BodyType(BodyType[body_part_str])
+                body_part: CustomBodyType = CustomBodyType(CustomBodyType[body_part_str])
             dd_part_handle_type = None
-            if body_part == BodyType.UPPER_BODY:
+            if body_part == CustomBodyType.UPPER_BODY:
                 dd_part_handle_type = DDPartHandleType.EQUIPMENT_TOP  # 6
-            elif body_part == BodyType.LOWER_BODY:
+            elif body_part == CustomBodyType.LOWER_BODY:
                 dd_part_handle_type = DDPartHandleType.EQUIPMENT_BOTTOM  # 7
-            elif body_part == BodyType.CUMMERBUND:
+            elif body_part == CustomBodyType.CUMMERBUND:
                 dd_part_handle_type = DDPartHandleType.EQUIPMENT_CUMMERBUND  # 9
-            elif body_part == BodyType.FULL_BODY:
+            elif body_part == CustomBodyType.FULL_BODY:
                 dd_part_handle_type = DDPartHandleType.EQUIPMENT_FULL_BODY  # 5
-            elif body_part == BodyType.TIGHTS:
+            elif body_part == CustomBodyType.TIGHTS:
                 dd_part_handle_type = DDPartHandleType.EQUIPMENT_TIGHTS  # 42
-            elif body_part == BodyType.SOCKS:
+            elif body_part == CustomBodyType.SOCKS:
                 dd_part_handle_type = DDPartHandleType.EQUIPMENT_SOCKS  # 36
-            elif body_part == BodyType.SHOES:
+            elif body_part == CustomBodyType.SHOES:
                 dd_part_handle_type = DDPartHandleType.EQUIPMENT_FEET  # 8
-            elif body_part == BodyType.GLASSES:
+            elif body_part == CustomBodyType.GLASSES:
                 dd_part_handle_type = DDPartHandleType.EQUIPMENT_GLASSES  # 11
-            elif body_part == BodyType.EARRINGS:
+            elif body_part == CustomBodyType.EARRINGS:
                 dd_part_handle_type = DDPartHandleType.EQUIPMENT_EARRINGS  # 10
-            elif body_part == BodyType.NECKLACE:
+            elif body_part == CustomBodyType.NECKLACE:
                 dd_part_handle_type = DDPartHandleType.EQUIPMENT_NECKLACE  # 12
             if dd_part_handle_type is None:
                 log.warn(f"Not supported: '{body_part}'")

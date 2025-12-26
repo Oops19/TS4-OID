@@ -32,6 +32,8 @@ class ModInfo(CommonModInfo):
 
 
 '''
+v1.0.0
+    Fixes for TS4Library 1.0.0
 v0.0.13
     Fix exception
 v0.0.12

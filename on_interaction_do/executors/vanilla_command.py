@@ -12,7 +12,7 @@ from on_interaction_do.modinfo import ModInfo
 from sims.sim_info import SimInfo
 from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
 from sims4communitylib.utils.sims.common_sim_pregnancy_utils import CommonSimPregnancyUtils
-from ts4lib.common_enums.body_type import BodyType
+from ts4lib.custom_enums.custom_body_type import CustomBodyType
 from ts4lib.utils.singleton import Singleton
 
 log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity(), 'VanillaCommand')
@@ -40,7 +40,7 @@ class VanillaCommand(metaclass=Singleton):
             if isinstance(parameter, int):
                 body_types.add(parameter)
             elif isinstance(parameter, str) and parameter:
-                body_types.add(BodyType[parameter].value)
+                body_types.add(CustomBodyType[parameter].value)
         return body_types
 
     def _undress(self, body_types: Set[int]):
